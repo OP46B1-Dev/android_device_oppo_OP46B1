@@ -19,6 +19,10 @@ $(call inherit-product, frameworks/native/build/phone-xhdpi-6144-dalvik-heap.mk)
 # API levels
 PRODUCT_SHIPPING_API_LEVEL := 28
 
+# Camera
+PRODUCT_PACKAGES += \
+    OnePlusCameraHelper
+
 # Health
 PRODUCT_PACKAGES += \
     android.hardware.health@2.1-impl \
