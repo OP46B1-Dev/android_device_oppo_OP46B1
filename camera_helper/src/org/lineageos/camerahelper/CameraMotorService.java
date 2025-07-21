@@ -32,6 +32,7 @@ public class CameraMotorService extends Service implements Handler.Callback {
 
     public static final int CAMERA_EVENT_DELAY_TIME = 100; // ms
 
+    public static final String FLASHLIGHT_CAMERA_ID = "0";
     public static final String FRONT_CAMERA_ID = "1";
 
     public static final int MSG_CAMERA_CLOSED = 1000;
@@ -42,6 +43,34 @@ public class CameraMotorService extends Service implements Handler.Callback {
     private long mClosedEvent;
     private long mOpenEvent;
 
+    private boolean mIsFlashlightOn = false;
+    private boolean mIsFontCameraOn = false;
+
+    private CameraManager.TorchCallback mTorchCallback =
+            new CameraManager.TorchCallback() {
+                @Override
+                public void onTorchModeChanged(@NonNull String cameraId, boolean enabled) {
+                    super.onTorchModeChanged(cameraId, enabled);
+
+                    if (cameraId.equals(FLASHLIGHT_CAMERA_ID)) {
+                        mIsFlashlightOn = enabled;
+                        if (DEBUG) Log.d(TAG, "Flashlight status: " + enabled);
+                        MotorControl();
+                    }
+                }
+
+                @Override
+                public void onTorchModeUnavailable(@NonNull String cameraId) {
+                    super.onTorchModeUnavailable(cameraId);
+
+                    if (cameraId.equals(FLASHLIGHT_CAMERA_ID)) {
+                        mIsFlashlightOn = false;
+                        if (DEBUG) Log.d(TAG, "Flashlight unavailable");
+                        MotorControl();
+                    }
+                }
+            };
+
     private CameraManager.AvailabilityCallback mAvailabilityCallback =
             new CameraManager.AvailabilityCallback() {
                 @Override
@@ -49,13 +78,9 @@ public class CameraMotorService extends Service implements Handler.Callback {
                     super.onCameraAvailable(cameraId);
 
                     if (cameraId.equals(FRONT_CAMERA_ID)) {
-                        mClosedEvent = SystemClock.elapsedRealtime();
-                        if (SystemClock.elapsedRealtime() - mOpenEvent < CAMERA_EVENT_DELAY_TIME
-                                && mHandler.hasMessages(MSG_CAMERA_OPEN)) {
-                            mHandler.removeMessages(MSG_CAMERA_OPEN);
-                        }
-                        mHandler.sendEmptyMessageDelayed(MSG_CAMERA_CLOSED,
-                                CAMERA_EVENT_DELAY_TIME);
+                        mIsFontCameraOn = false;
+                        if (DEBUG) Log.d(TAG, "Front camera unavailable");
+                        MotorControl();
                     }
                 }
 
@@ -64,16 +89,32 @@ public class CameraMotorService extends Service implements Handler.Callback {
                     super.onCameraAvailable(cameraId);
 
                     if (cameraId.equals(FRONT_CAMERA_ID)) {
-                        mOpenEvent = SystemClock.elapsedRealtime();
-                        if (SystemClock.elapsedRealtime() - mClosedEvent < CAMERA_EVENT_DELAY_TIME
-                                && mHandler.hasMessages(MSG_CAMERA_CLOSED)) {
-                            mHandler.removeMessages(MSG_CAMERA_CLOSED);
-                        }
-                        mHandler.sendEmptyMessageDelayed(MSG_CAMERA_OPEN,
-                                CAMERA_EVENT_DELAY_TIME);
+                        mIsFontCameraOn = true;
+                        if (DEBUG) Log.d(TAG, "Front camera available");
+                        MotorControl();
                     }
                 }
             };
+
+    private void MotorControl() {
+        if (mIsFlashlightOn || mIsFontCameraOn) {
+            mOpenEvent = SystemClock.elapsedRealtime();
+            if (SystemClock.elapsedRealtime() - mClosedEvent < CAMERA_EVENT_DELAY_TIME
+                    && mHandler.hasMessages(MSG_CAMERA_CLOSED)) {
+                mHandler.removeMessages(MSG_CAMERA_CLOSED);
+            }
+            mHandler.sendEmptyMessageDelayed(MSG_CAMERA_OPEN,
+                    CAMERA_EVENT_DELAY_TIME);
+        } else {
+            mClosedEvent = SystemClock.elapsedRealtime();
+            if (SystemClock.elapsedRealtime() - mOpenEvent < CAMERA_EVENT_DELAY_TIME
+                    && mHandler.hasMessages(MSG_CAMERA_OPEN)) {
+                mHandler.removeMessages(MSG_CAMERA_OPEN);
+            }
+            mHandler.sendEmptyMessageDelayed(MSG_CAMERA_CLOSED,
+                    CAMERA_EVENT_DELAY_TIME);
+        }
+    }
 
     @Override
     public void onCreate() {
@@ -81,6 +122,7 @@ public class CameraMotorService extends Service implements Handler.Callback {
 
         CameraManager cameraManager = getSystemService(CameraManager.class);
         cameraManager.registerAvailabilityCallback(mAvailabilityCallback, null);
+        cameraManager.registerTorchCallback(mTorchCallback, null);
     }
 
     @Override
