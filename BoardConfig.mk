@@ -59,6 +59,8 @@ BOARD_KERNEL_CMDLINE := console=ttyMSM0,115200n8 \
                         loop.max_part=7 \
                         printk.devkmsg=on \
                         kpti=off
+# TODO: Set SELinux to Permissive mode
+BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOTIMG_HEADER_VERSION) \
                         --kernel_offset $(BOARD_KERNEL_OFFSET) \
                         --second_offset $(BOARD_KERNEL_SECOND_OFFSET) \
