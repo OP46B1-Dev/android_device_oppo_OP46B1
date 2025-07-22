@@ -1,0 +1,6 @@
+runtime_resource_overlay {
+    name: "FrameworkResOverlayOP46B1",
+    theme: "FrameworkResOverlayOP46B1",
+    sdk_version: "current",
+    device_specific: true
+}
