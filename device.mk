@@ -29,6 +29,11 @@ PRODUCT_PACKAGES += \
     android.hardware.health@2.1-impl.recovery \
     android.hardware.health@2.1-service
 
+# Overlay
+PRODUCT_PACKAGES += \
+    FrameworkResOverlayOP46B1 \
+    SystemUIOverlayOP46B1
+
 # Product characteristics
 PRODUCT_CHARACTERISTICS := nosdcard
 
