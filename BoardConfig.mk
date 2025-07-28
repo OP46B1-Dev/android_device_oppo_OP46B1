@@ -5,7 +5,7 @@
 #
 
 # Inherit the proprietary files
-# include vendor/oppo/OP46B1/BoardConfigVendor.mk
+-include vendor/oppo/OP46B1/BoardConfigVendor.mk
 
 DEVICE_PATH := device/oppo/OP46B1
 
@@ -32,9 +32,21 @@ TARGET_BOOTLOADER_BOARD_NAME := sdm710
 TARGET_NO_BOOTLOADER := true
 
 # Display
+TARGET_USES_GRALLOC1 := true
+TARGET_USES_HWC2 := true
+TARGET_USES_ION := true
+TARGET_USES_QCOM_DISPLAY_BSP := true
+TARGET_USES_COLOR_METADATA := true
+TARGET_USES_DRM_PP := true
+TARGET_HAS_WIDE_COLOR_DISPLAY := true
+TARGET_USES_DISPLAY_RENDER_INTENTS := true
+TARGET_HAS_HDR_DISPLAY := true
 TARGET_SCREEN_DENSITY := 480
 TARGET_SCREEN_HEIGHT := 2340
 TARGET_SCREEN_WIDTH := 1080
+
+# Filesystem
+TARGET_FS_CONFIG_GEN := $(DEVICE_PATH)/configs/config.fs
 
 # Kernel
 BOARD_BOOTIMG_HEADER_VERSION := 1
@@ -103,9 +115,6 @@ TARGET_SYSTEM_EXT_PROP += $(DEVICE_PATH)/configs/prop/system_ext.prop
 
 # Qualcomm Hardware
 BOARD_USES_QCOM_HARDWARE := true
-TARGET_USES_GRALLOC1 := true
-TARGET_USES_HWC2 := true
-TARGET_USES_ION := true
 
 # Recovery
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.qcom
@@ -132,5 +141,6 @@ BOARD_AVB_RECOVERY_ROLLBACK_INDEX := 1
 BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION := 1
 
 # VINTF
+ODM_MANIFEST_FILES += $(DEVICE_PATH)/configs/vintf/manifest_odm.xml
 DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/configs/vintf/manifest.xml
 DEVICE_MATRIX_FILE := $(DEVICE_PATH)/configs/vintf/compatibility_matrix.xml
