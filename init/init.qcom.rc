@@ -4,3 +4,7 @@ on boot
     chown system system /sys/class/motor/enable
     chown system system /sys/class/motor/hall_calibration
     chown system system /sys/class/motor/position
+
+on property:ro.boot.prjname=*
+    # Display
+    setprop ro.separate.soft ${ro.boot.prjname}
