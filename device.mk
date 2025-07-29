@@ -244,7 +244,6 @@ PRODUCT_PACKAGES += \
     librmnetctl \
     libnfnetlink \
     libnetfilter_conntrack \
-
     libavservices_minijail.vendor
 
 # Rootdir
