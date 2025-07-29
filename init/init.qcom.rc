@@ -1,0 +1,6 @@
+on boot
+    # Motor
+    chown system system /sys/class/motor/direction
+    chown system system /sys/class/motor/enable
+    chown system system /sys/class/motor/hall_calibration
+    chown system system /sys/class/motor/position
