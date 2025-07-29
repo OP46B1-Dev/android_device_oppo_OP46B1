@@ -59,6 +59,7 @@ PRODUCT_PACKAGES += \
 
 # ANT+
 PRODUCT_PACKAGES += \
+    AntHalService-Soong \
     com.dsi.ant@1.0.vendor
 
 # Bluetooth
@@ -248,7 +249,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     librmnetctl \
     libnfnetlink \
-    libnetfilter_conntrack
+    libnetfilter_conntrack \
+
+    libavservices_minijail.vendor
 
 # Rootdir
 PRODUCT_PACKAGES += \
@@ -299,6 +302,7 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.wifi.supplicant@2.2.vendor \
     android.hardware.wifi@1.0-service \
     libwfdaac_vendor \
+    libcld80211 \
     libkeystore-engine-wifi-hidl \
     libkeystore-wifi-hidl \
     libwifi-hal
