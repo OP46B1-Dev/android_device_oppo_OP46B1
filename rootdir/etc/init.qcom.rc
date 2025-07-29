@@ -1021,10 +1021,6 @@ service vendor.audio-hal /vendor/bin/hw/android.hardware.audio.service
 on post-fs-data
     chmod 0666 /mnt/vendor/persist/wlan/WCNSS_qcom_cfg.ini
 
-    # Create apex symlinked dirs
-    mkdir /data/vendor/metadata_apex 0755 root system
-    mkdir /data/vendor/metadata_apex/sessions 0700 root system
-
 on property:ro.boot.prjname=*
     # Display
     setprop ro.separate.soft ${ro.boot.prjname}
