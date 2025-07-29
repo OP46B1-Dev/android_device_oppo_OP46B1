@@ -249,10 +249,22 @@ PRODUCT_PACKAGES += \
 
 # Rootdir
 PRODUCT_PACKAGES += \
-    fstab.qcom \
-    fstab.qcom_ramdisk \
+    init.class_main.sh \
+    init.qcom.class_core.sh \
+    init.qcom.early_boot.sh \
+    init.qcom.post_boot.sh \
+    init.qcom.sh \
+    init.oppo.sensor.rc \
+    init.oppo.vendor.motor.rc \
     init.qcom.rc \
-    init.recovery.qcom.rc
+    init.qcom.usb.rc \
+    init.qti.ufs.rc \
+    init.target.rc \
+    init.wlan.qcom.rc \
+    init.wlan.target.rc \
+    init.recovery.qcom.rc \
+    fstab.qcom \
+    fstab.qcom_ramdisk
 
 # Seccomp policy
 PRODUCT_COPY_FILES += \
