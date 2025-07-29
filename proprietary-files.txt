@@ -1965,7 +1965,6 @@ vendor/etc/ftm_test_config_sdm710-tavil-snd-card
 vendor/etc/gnss_antenna_info.conf
 vendor/etc/gpfspath_oem_config.xml
 vendor/etc/graphite_ipc_platform_info.xml
-vendor/etc/init.qti.fm.sh
 vendor/etc/listen_platform_info.xml
 vendor/etc/msm_irqbalance.conf
 vendor/etc/oplus_avb.pubkey

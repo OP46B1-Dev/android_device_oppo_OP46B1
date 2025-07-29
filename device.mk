@@ -249,14 +249,21 @@ PRODUCT_PACKAGES += \
 # Rootdir
 PRODUCT_PACKAGES += \
     init.class_main.sh \
+    init.crda.sh \
+    init.mdm.sh \
     init.qcom.class_core.sh \
     init.qcom.early_boot.sh \
     init.qcom.post_boot.sh \
+    init.qcom.sdio.sh \
+    init.qcom.sensors.sh \
     init.qcom.sh \
+    init.qcom.usb.sh \
+    init.qti.qcv.sh \
     init.oppo.sensor.rc \
     init.oppo.vendor.motor.rc \
     init.qcom.rc \
     init.qcom.usb.rc \
+    init.qti.qcv.rc \
     init.qti.ufs.rc \
     init.target.rc \
     init.wlan.qcom.rc \
