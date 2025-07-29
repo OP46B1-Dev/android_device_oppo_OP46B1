@@ -2262,7 +2262,6 @@ vendor/lib/libAlacSwDec.so
 vendor/lib/libApeSwDec.so
 vendor/lib/libC2D2.so
 vendor/lib/libFlacSwDec.so
-vendor/lib/libGLESv2_adreno.so
 vendor/lib/libGPreqcancel.so
 vendor/lib/libI420colorconvert.so
 vendor/lib/libMegviiHum.so
@@ -2442,7 +2441,6 @@ vendor/lib64/libAlacSwDec.so
 vendor/lib64/libApeSwDec.so
 vendor/lib64/libC2D2.so
 vendor/lib64/libFlacSwDec.so
-vendor/lib64/libGLESv2_adreno.so
 vendor/lib64/libGPreqcancel.so
 vendor/lib64/libI420colorconvert.so
 vendor/lib64/libOppoAPSMemMgr.so
