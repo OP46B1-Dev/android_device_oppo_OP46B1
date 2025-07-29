@@ -1740,10 +1740,12 @@ vendor/etc/init/vendor.qti.hardware.fstman@1.0-service.rc
 vendor/etc/init/vendor.qti.hardware.wifi.wifilearner@1.0-service.rc
 vendor/etc/init/vendor.qti.hardware.wigig.supptunnel@1.0-service.rc
 vendor/lib/libcert_parse.wpa_s.so
+vendor/lib/libmmosal.so
 vendor/lib/libwifi-hal-ctrl.so
 vendor/lib/libwifi-hal-qcom.so
 vendor/lib/vendor.qti.hardware.wigig.netperftuner@1.0.so
 vendor/lib64/libcert_parse.wpa_s.so
+vendor/lib64/libmmosal.so
 vendor/lib64/libwifi-hal-ctrl.so
 vendor/lib64/libwifi-hal-qcom.so
 vendor/lib64/vendor.oplus.hardware.wifi.powersystem@1.0.so
