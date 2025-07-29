@@ -37,14 +37,11 @@ PRODUCT_PACKAGES += \
 # Product characteristics
 PRODUCT_CHARACTERISTICS := nosdcard
 
-# Init
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/init/init.recovery.qcom.rc:$(TARGET_COPY_OUT_RECOVERY)/root/init.recovery.qcom.rc \
-    $(LOCAL_PATH)/rootdir/etc/fstab.qcom:$(TARGET_COPY_OUT_RAMDISK)/fstab.qcom
-
 # Rootdir
 PRODUCT_PACKAGES += \
-    fstab.qcom
+    fstab.qcom \
+    fstab.qcom_ramdisk \
+    init.recovery.qcom.rc
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
