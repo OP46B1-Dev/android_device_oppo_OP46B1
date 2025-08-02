@@ -1413,3 +1413,7 @@ vendor/lib64/liblowi_client.so
 vendor/ueventd.rc
 vendor/lib/libllvm-glnext.so
 vendor/lib64/libllvm-glnext.so
+vendor/lib/libCB.so
+vendor/lib64/libCB.so
+vendor/lib/librs_adreno.so
+vendor/lib64/librs_adreno.so
