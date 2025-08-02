@@ -1314,6 +1314,7 @@ vendor/lib64/libjnihelper.so
 vendor/lib64/libkeymasterprovision.so
 vendor/lib64/liblearningmodule.so
 vendor/lib64/liblistensoundmodel2.so
+vendor/lib/libllvm-qcom.so
 vendor/lib64/libllvm-qcom.so
 vendor/lib64/libloadalgo_stub.so
 vendor/lib64/libloc_socket.so
