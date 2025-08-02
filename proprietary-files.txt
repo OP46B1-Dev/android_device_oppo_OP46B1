@@ -1297,6 +1297,8 @@ vendor/lib/libhdcp1prov.so
 vendor/lib/libhdcp2p2prov.so
 vendor/lib/libhdcpsrm.so
 vendor/lib/libhdmipassthru.so
+vendor/lib/libadreno_utils.so
+vendor/lib/libsdmextension.so
 vendor/lib/egl/eglSubDriverAndroid.so
 vendor/lib/egl/libEGL_adreno.so
 vendor/lib/egl/libGLESv1_CM_adreno.so
@@ -1390,6 +1392,8 @@ vendor/lib64/libwigig_pciaccess.so
 vendor/lib64/libwigig_utils.so
 vendor/lib64/libwms.so
 vendor/lib64/libwqe.so
+vendor/lib64/libadreno_utils.so
+vendor/lib64/libsdmextension.so
 vendor/lib64/oplus_btaudio_offload_if.so
 vendor/lib64/vendor.oplus.hardware.commondcs@1.0.so
 vendor/lib64/vendor.oppo.hardware.camera.oppoAlgoProcessService@1.0.so
