@@ -1403,6 +1403,10 @@ vendor/lib64/egl/libGLESv1_CM_adreno.so
 vendor/lib64/egl/libGLESv2_adreno.so
 vendor/lib64/egl/libq3dtools_adreno.so
 vendor/lib64/egl/libq3dtools_esx.so
+vendor/lib/libgsl.so
+vendor/lib64/libgsl.so
+vendor/lib/libdisplayqos.so
+vendor/lib64/libdisplayqos.so
 vendor/lib/liblowi_client.so
 vendor/lib64/liblowi_client.so
 vendor/ueventd.rc
