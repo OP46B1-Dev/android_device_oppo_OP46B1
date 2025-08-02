@@ -5,7 +5,7 @@
 #
 
 # Inherit the proprietary files
-# include vendor/oppo/OP46B1/BoardConfigVendor.mk
+include vendor/oppo/OP46B1/BoardConfigVendor.mk
 
 DEVICE_PATH := device/oppo/OP46B1
 
@@ -35,6 +35,9 @@ TARGET_NO_BOOTLOADER := true
 TARGET_SCREEN_DENSITY := 480
 TARGET_SCREEN_HEIGHT := 2340
 TARGET_SCREEN_WIDTH := 1080
+
+# Filesystem
+TARGET_FS_CONFIG_GEN := $(DEVICE_PATH)/configs/config.fs
 
 # Kernel
 BOARD_BOOTIMG_HEADER_VERSION := 1
