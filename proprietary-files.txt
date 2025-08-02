@@ -1410,3 +1410,5 @@ vendor/lib64/libdisplayqos.so
 vendor/lib/liblowi_client.so
 vendor/lib64/liblowi_client.so
 vendor/ueventd.rc
+vendor/lib/libllvm-glnext.so
+vendor/lib64/libllvm-glnext.so
