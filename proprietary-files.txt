@@ -115,7 +115,9 @@ vendor/lib64/vendor.qti.hardware.automotive.vehicle@1.0.so
 vendor/bin/hw/android.hardware.bluetooth@1.0-service-qti
 vendor/etc/init/android.hardware.bluetooth@1.0-service-qti.rc
 vendor/lib/vendor.qti.hardware.bluetooth_sar@1.0.so
+vendor/lib/vendor.qti.hardware.bluetooth_sar@1.1.so
 vendor/lib64/vendor.qti.hardware.bluetooth_sar@1.0.so
+vendor/lib64/vendor.qti.hardware.bluetooth_sar@1.1.so
 
 # Bluetooth (A2DP)
 vendor/lib/camera/components/com.arcsoft.node.yuvhdr.so
@@ -436,6 +438,8 @@ vendor/lib/libdiag.so
 vendor/lib/libidl.so
 vendor/lib/libqmiservices.so
 vendor/lib/libwpa_client.so
+vendor/lib/vendor.qti.ims.rcsconfig@1.0.so
+vendor/lib/vendor.qti.ims.rcsconfig@1.1.so
 vendor/lib/vendor.qti.data.factory@2.0.so
 vendor/lib/vendor.qti.data.factory@2.1.so
 vendor/lib/vendor.qti.data.factory@2.2.so
@@ -461,6 +465,7 @@ vendor/lib64/libidl.so
 vendor/lib64/libqmiservices.so
 vendor/lib64/libwpa_client.so
 vendor/lib64/vendor.qti.ims.rcsconfig@1.0.so
+vendor/lib64/vendor.qti.ims.rcsconfig@1.1.so
 vendor/lib64/vendor.qti.data.factory@2.0.so
 vendor/lib64/vendor.qti.data.factory@2.1.so
 vendor/lib64/vendor.qti.data.factory@2.2.so
@@ -681,6 +686,7 @@ vendor/lib/libqdp.so
 vendor/lib/libqrtr.so
 vendor/lib/libqsocket.so
 vendor/lib/libril-qc-hal-qmi.so
+odm/lib/vendor.oplus.hardware.appradio@1.0.so
 vendor/lib/libril-qc-logger.so
 vendor/lib/librilqmiservices.so
 vendor/lib/libsystem_health_mon.so
@@ -726,6 +732,7 @@ vendor/lib64/libqdp.so
 vendor/lib64/libqrtr.so
 vendor/lib64/libqsocket.so
 vendor/lib64/libril-qc-hal-qmi.so
+odm/lib64/vendor.oplus.hardware.appradio@1.0.so
 vendor/lib64/libril-qc-logger.so
 vendor/lib64/librilqmiservices.so
 vendor/lib64/libsystem_health_mon.so
@@ -1014,11 +1021,13 @@ vendor/lib/libcert_parse.wpa_s.so
 vendor/lib/libmmosal.so
 vendor/lib/libwifi-hal-ctrl.so
 vendor/lib/libwifi-hal-qcom.so
+vendor/lib/libperipheral_client.so
 vendor/lib/vendor.qti.hardware.wigig.netperftuner@1.0.so
 vendor/lib64/libcert_parse.wpa_s.so
 vendor/lib64/libmmosal.so
 vendor/lib64/libwifi-hal-ctrl.so
 vendor/lib64/libwifi-hal-qcom.so
+vendor/lib64/libperipheral_client.so
 vendor/lib64/vendor.oplus.hardware.wifi.powersystem@1.0.so
 vendor/lib64/vendor.oplus.hardware.wifi.supplicant@2.0.so
 vendor/lib64/vendor.qti.hardware.wifi.keystore@1.0.so
@@ -1050,6 +1059,7 @@ vendor/bin/wifidisplayhalservice
 vendor/etc/init/com.qualcomm.qti.wifidisplayhal@1.0-service.rc
 vendor/etc/init/wfdvndservice.rc
 vendor/etc/wfdconfig.xml
+vendor/lib/libwfdcommonutils_proprietary.so
 vendor/lib/libFileMux_proprietary.so
 vendor/lib/libmiracast.so
 vendor/lib/libmmrtpdecoder_proprietary.so
@@ -1208,6 +1218,7 @@ vendor/firmware/ois_bu24218gwl.coeff
 vendor/firmware/ois_bu24218gwl.prog
 vendor/firmware/voice_amodel.bin
 vendor/lib/hw/vendor.oppo.hardware.camera.oppoAlgoProcessService@1.0-impl.so
+vendor/lib/libdisp-aba.so
 vendor/lib/btaudio_offload_if.so
 vendor/lib/ftm_fm_lib.so
 vendor/lib/libAlacSwDec.so
@@ -1289,6 +1300,7 @@ vendor/lib/libhdmipassthru.so
 vendor/lib/egl/libGLESv1_CM_adreno.so
 vendor/lib/egl/libGLESv2_adreno.so
 vendor/lib/egl/libq3dtools_adreno.so;SYMLINK=vendor/lib/libq3dtools_adreno.so
+vendor/lib64/libdisp-aba.so
 vendor/lib64/libhdr_tm.so
 vendor/lib64/libhvx_proxy_stub.so
 vendor/lib64/libiu456_datapath_filt_lib.so

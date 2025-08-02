@@ -101,6 +101,7 @@ TARGET_BOARD_PLATFORM := sdm710
 
 # Properties
 TARGET_SYSTEM_PROP += $(DEVICE_PATH)/configs/prop/system.prop
+TARGET_VENDOR_PROP += $(DEVICE_PATH)/configs/prop/vendor.prop
 TARGET_PRODUCT_PROP += $(DEVICE_PATH)/configs/prop/product.prop
 TARGET_SYSTEM_EXT_PROP += $(DEVICE_PATH)/configs/prop/system_ext.prop
 
