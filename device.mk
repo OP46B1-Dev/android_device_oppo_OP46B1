@@ -204,6 +204,11 @@ PRODUCT_PACKAGES += \
     libOmxVenc \
     libstagefrighthw
 
+# Overlay
+PRODUCT_PACKAGES += \
+    FrameworkResOverlayOP46B1 \
+    SystemUIOverlayOP46B1
+
 # Perf
 PRODUCT_PACKAGES += \
     libqti-perfd-client \
