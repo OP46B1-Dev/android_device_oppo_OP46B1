@@ -116,6 +116,11 @@ BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
 # Platform
 TARGET_BOARD_PLATFORM := sdm710
 
+BOARD_ROOT_EXTRA_SYMLINKS := \
+    /vendor/firmware_mnt:/firmware \
+    /vendor/bt_firmware:/bt_firmware \
+    /vendor/dsp:/dsp
+
 # Properties
 TARGET_ODM_PROP += $(DEVICE_PATH)/odm.prop
 TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
@@ -146,6 +151,7 @@ VENDOR_SECURITY_PATCH := 2022-04-05
 
 # Sepolicy
 include device/qcom/sepolicy_vndr/SEPolicy.mk
+BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
 
 # Treble
 BOARD_VNDK_VERSION := current
