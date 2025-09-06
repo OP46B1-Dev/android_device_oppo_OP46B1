@@ -1,0 +1,8 @@
+# Camera
+ro.camera.hfr.enable=1
+ro.camera.relight.enable=0
+ro.camera.attr.detect.enable=1
+ro.camera.notify_nfc=1
+
+# QC framework value-adds
+ro.vendor.qti.va_odm.support=1
