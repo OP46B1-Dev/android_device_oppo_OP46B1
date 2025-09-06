@@ -1,0 +1,6 @@
+[
+  {
+    "repository": "android_kernel_oppo_sdm710",
+    "target_path": "kernel/oppo/sdm710"
+  }
+]
