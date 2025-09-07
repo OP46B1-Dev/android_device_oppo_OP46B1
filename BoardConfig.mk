@@ -9,6 +9,8 @@ include vendor/oppo/OP46B1/BoardConfigVendor.mk
 
 DEVICE_PATH := device/oppo/OP46B1
 
+BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
+
 # APEX
 DEXPREOPT_GENERATE_APEX_IMAGE := true
 
