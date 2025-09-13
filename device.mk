@@ -235,6 +235,7 @@ PRODUCT_PACKAGES += \
 
 # Overlay
 PRODUCT_PACKAGES += \
+    CarrierConfigOverlayOP46B1 \
     FrameworkResOverlayOP46B1 \
     SystemUIOverlayOP46B1
 
