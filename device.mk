@@ -237,7 +237,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     CarrierConfigOverlayOP46B1 \
     FrameworkResOverlayOP46B1 \
-    SystemUIOverlayOP46B1
+    SystemUIOverlayOP46B1 \
+    TelephonyResOverlayOP46B1
 
 # Perf
 PRODUCT_PACKAGES += \
