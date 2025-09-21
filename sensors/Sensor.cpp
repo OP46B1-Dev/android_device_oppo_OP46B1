@@ -58,11 +58,11 @@ const SensorInfo& Sensor::getSensorInfo() const {
     return mSensorInfo;
 }
 
-void Sensor::batch(int32_t samplingPeriodNs) {
-    if (samplingPeriodNs < mSensorInfo.minDelay * 1000) {
-        samplingPeriodNs = mSensorInfo.minDelay * 1000;
-    } else if (samplingPeriodNs > mSensorInfo.maxDelay * 1000) {
-        samplingPeriodNs = mSensorInfo.maxDelay * 1000;
+void Sensor::batch(int64_t samplingPeriodNs) {
+    if (samplingPeriodNs < mSensorInfo.minDelay * 1000ll) {
+        samplingPeriodNs = mSensorInfo.minDelay * 1000ll;
+    } else if (samplingPeriodNs > mSensorInfo.maxDelay * 1000ll) {
+        samplingPeriodNs = mSensorInfo.maxDelay * 1000ll;
     }
 
     if (mSamplingPeriodNs != samplingPeriodNs) {
@@ -313,7 +313,7 @@ GyroSensor::GyroSensor(int32_t sensorHandle, ISensorsEventCallback* callback) : 
     mSensorInfo.maxRange = 1000.0f * M_PI / 180.0f;
     mSensorInfo.resolution = 1000.0f * M_PI / (180.0f * 32768.0f);
     mSensorInfo.power = 0.001f;
-    mSensorInfo.minDelay = 2.5f * 1000;  // microseconds
+    mSensorInfo.minDelay = 10 * 1000;  // microseconds
     mSensorInfo.maxDelay = kDefaultMaxDelayUs;
     mSensorInfo.fifoReservedEventCount = 0;
     mSensorInfo.fifoMaxEventCount = 0;
@@ -339,25 +339,6 @@ AmbientTempSensor::AmbientTempSensor(int32_t sensorHandle, ISensorsEventCallback
     mSensorInfo.requiredPermission = "";
     mSensorInfo.flags = static_cast<uint32_t>(SensorFlagBits::ON_CHANGE_MODE);
 };
-
-DeviceTempSensor::DeviceTempSensor(int32_t sensorHandle, ISensorsEventCallback* callback)
-    : OnChangeSensor(callback) {
-    mSensorInfo.sensorHandle = sensorHandle;
-    mSensorInfo.name = "Device Temp Sensor";
-    mSensorInfo.vendor = "Vendor String";
-    mSensorInfo.version = 1;
-    mSensorInfo.type = SensorType::TEMPERATURE;
-    mSensorInfo.typeAsString = "";
-    mSensorInfo.maxRange = 80.0f;
-    mSensorInfo.resolution = 0.01f;
-    mSensorInfo.power = 0.001f;
-    mSensorInfo.minDelay = 40 * 1000;  // microseconds
-    mSensorInfo.maxDelay = kDefaultMaxDelayUs;
-    mSensorInfo.fifoReservedEventCount = 0;
-    mSensorInfo.fifoMaxEventCount = 0;
-    mSensorInfo.requiredPermission = "";
-    mSensorInfo.flags = static_cast<uint32_t>(SensorFlagBits::ON_CHANGE_MODE);
-}
 
 RelativeHumiditySensor::RelativeHumiditySensor(int32_t sensorHandle,
                                                ISensorsEventCallback* callback)

@@ -45,5 +45,6 @@ cc_binary {
     ],
     static_libs: [
         "android.hardware.sensors@1.0-convert",
+        "android.hardware.sensors@2.X-multihal",
     ],
 }
