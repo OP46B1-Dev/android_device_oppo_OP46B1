@@ -91,9 +91,6 @@
         <effect name="shoebox" library="shoebox" uuid="1eab784c-1a36-4b2a-b7fc-e34c44cab89e"/>
     </effects>
     <postprocess>
-    <!-- #ifndef VENDOR_EDIT-->
-        <!-- YunMang.Xiao@PSW.MM.Dolby, 2019/06/18, add for dolby -->
-    <!--
         <stream type="music">
             <apply effect="music_helper"/>
         </stream>
@@ -102,18 +99,13 @@
         </stream>
         <stream type="alarm">
             <apply effect="alarm_helper"/>
-        </stream> -->
-     <!-- #endif VENDOR_EDIT-->
+        </stream>
         <stream type="voice_call">
             <apply effect="voice_helper"/>
         </stream>
-    <!-- #ifndef VENDOR_EDIT-->
-        <!-- YunMang.Xiao@PSW.MM.Dolby, 2019/06/18, add for dolby -->
-     <!--
             <stream type="notification">
             <apply effect="notification_helper"/>
-        </stream> -->
-     <!-- #endif VENDOR_EDIT-->
+        </stream>
     </postprocess>
     <preprocess>
         <stream type="voice_communication">
