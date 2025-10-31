@@ -697,10 +697,7 @@ odm/etc/sap.conf
 vendor/etc/apdr.conf
 vendor/etc/flp.conf
 vendor/etc/gnss_antenna_info.conf
-vendor/etc/gps.conf
-vendor/etc/izat.conf
 vendor/etc/lowi.conf
-vendor/etc/sap.conf
 vendor/etc/xtwifi.conf
 
 # IMS - from LA.QSSI.12.0.r1-05800.02-qssi.0
