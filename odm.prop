@@ -1,3 +1,6 @@
+# Bluetooth
+bluetooth.device.default_name=OPPO Reno
+
 # Camera
 ro.camera.attr.detect.enable=1
 ro.camera.hfr.enable=1
