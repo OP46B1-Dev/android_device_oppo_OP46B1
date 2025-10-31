@@ -89,6 +89,7 @@ BOARD_KERNEL_CMDLINE := \
     loop.max_part=7 \
     printk.devkmsg=on \
     kpti=off
+BOARD_KERNEL_CMDLINE += androidboot.init_fatal_reboot_target=recovery
 # TODO: Set SELinux to Permissive mode
 BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOTIMG_HEADER_VERSION)
