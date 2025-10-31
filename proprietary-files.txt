@@ -1080,10 +1080,6 @@ vendor/lib64/vendor.qti.hardware.scve.panorama@1.0.so
 vendor/etc/seccomp_policy/mediacodec.policy
 
 # Sensors
--odm/etc/vintf/manifest/manifest_oplusSensor.xml
-odm/bin/hw/vendor.oplus.hardware.oplusSensor@1.0-service
-odm/etc/init/vendor.oplus.hardware.oplusSensor@1.0-service.rc
-odm/etc/permissions/vendor-oplus-hardware-oplusSensor.xml
 odm/etc/sensor.cfg
 odm/etc/sensor/config/alsps.json
 odm/etc/sensor/config/holi_ak991x_0.json
@@ -1094,7 +1090,6 @@ odm/etc/sensor/config/holi_mmc5603x_0.json
 odm/etc/sensor/config/holi_mxg4300_0.json
 odm/etc/sensor/sensor_config.json
 odm/lib64/oplus.sensors.ssc.so
-odm/lib64/vendor.oplus.hardware.oplusSensor@1.0.so
 vendor/bin/hw/vendor.qti.hardware.sensorscalibrate@1.0-service
 vendor/bin/init.qcom.sensors.sh
 vendor/bin/sensors.qti
