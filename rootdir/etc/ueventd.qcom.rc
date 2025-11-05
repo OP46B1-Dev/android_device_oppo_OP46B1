@@ -317,6 +317,10 @@ firmware_directories /mnt/vendor/persist/ /vendor/firmware_mnt/image/
 # nfc permissions
 /dev/pn553                0660    nfc         nfc
 
+# fingerprint
+/dev/goodix_fp                    0660    system      system
+/sys/kernel/oppo_display/hbm      0660    system      system
+
 # UIO devices
 /dev/uio0                 0660   system     system
 /dev/uio1                 0660   system     system
