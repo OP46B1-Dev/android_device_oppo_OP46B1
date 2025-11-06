@@ -100,9 +100,6 @@ BOARD_KERNEL_IMAGE_NAME := Image
 TARGET_KERNEL_CONFIG := sdm670-perf_defconfig
 TARGET_KERNEL_SOURCE := kernel/oppo/sdm710
 
-# Keystore
-TARGET_PROVIDES_KEYMASTER := true
-
 # NFC
 TARGET_USES_NQ_NFC := true
 
