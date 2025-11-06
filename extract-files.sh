@@ -58,6 +58,9 @@ function blob_fixup() {
         odm/bin/hw/vendor.oplus.hardware.biometrics.fingerprint@2.1-service)
             "${PATCHELF}" --add-needed libshims_fingerprint.oplus.so "${2}"
         ;;
+        system_ext/lib64/lib-imsvideocodec.so)
+            "${PATCHELF}" --add-needed lib-imsvtshim.so "${2}"
+        ;;
     esac
 }
 
