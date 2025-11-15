@@ -61,9 +61,7 @@ vendor/firmware/dbmd4_va_fw.bin
 # Audio hardware
 vendor/lib/libadm.so
 vendor/lib/libaudio_log_utils.so
-vendor/lib/libssrec.so
 vendor/lib64/libaudio_log_utils.so
-vendor/lib64/libssrec.so
 
 # Audio soundtrigger
 vendor/lib/hw/sound_trigger.primary.sdm710.so

@@ -42,9 +42,18 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     liba2dpoffload \
     libaudioalsa \
+    libbatterylistener \
+    libcirrusspkrprot \
+    libcomprcapture \
+    libexthwplugin \
+    libhdmiedid \
+    libhfp \
     libqcompostprocbundle \
     libqcomvisualizer \
     libqcomvoiceprocessing \
+    libsndmonitor \
+    libspkrprot \
+    libssrec \
     libtinycompress \
     libvolumelistener \
     tinymix
