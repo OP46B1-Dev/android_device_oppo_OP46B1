@@ -138,8 +138,9 @@ PRODUCT_PACKAGES += \
 
 # Fingerprint
 PRODUCT_PACKAGES += \
-    android.hardware.biometrics.fingerprint@2.3-service.oplus \
-    libshims_fingerprint.oplus
+    android.hardware.biometrics.fingerprint@2.3-service.OP46B1 \
+    android.hardware.biometrics.fingerprint@2.3.vendor \
+    vendor.oplus.hardware.biometrics.fingerprint@2.1
 
 PRODUCT_PACKAGES += \
     init.oplus.fingerprint.rc
@@ -370,8 +371,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH) \
     vendor/qcom/opensource/usb/etc \
-    vendor/nxp/opensource/pn5xx \
-    hardware/oplus
+    vendor/nxp/opensource/pn5xx
 
 # Telephony
 PRODUCT_PACKAGES += \

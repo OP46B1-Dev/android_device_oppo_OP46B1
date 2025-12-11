@@ -156,7 +156,8 @@ TARGET_COPY_OUT_VENDOR := vendor
 TARGET_COPY_OUT_ODM := odm
 
 # UDFPS
-TARGET_SURFACEFLINGER_UDFPS_LIB := //hardware/oplus:libudfps_extension.oplus
+TARGET_SURFACEFLINGER_UDFPS_LIB := //$(DEVICE_PATH):libudfps_extension.OP46B1
+TARGET_USES_FOD_ZPOS := true
 
 # Verified Boot
 BOARD_AVB_ENABLE := true
