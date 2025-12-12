@@ -1,0 +1,6 @@
+runtime_resource_overlay {
+    name: "LineageSdkResOP46B1",
+    theme: "LineageSdkResOP46B1",
+    sdk_version: "current",
+    device_specific: true
+}
