@@ -1,9 +1,5 @@
 [
   {
-    "repository": "android_hardware_oplus",
-    "target_path": "hardware/oplus"
-  },
-  {
     "repository": "android_kernel_oppo_sdm710",
     "target_path": "kernel/oppo/sdm710"
   }
