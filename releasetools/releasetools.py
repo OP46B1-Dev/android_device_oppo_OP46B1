@@ -18,12 +18,68 @@ import hashlib
 import common
 import re
 
+def LoadFilesMap(zip):
+  try:
+    data = zip.read("RADIO/filesmap")
+  except KeyError:
+    print "Warning: could not find RADIO/filesmap in %s." % zip
+    data = ""
+  d = {}
+  for line in data.split("\n"):
+    line = line.strip()
+    if not line or line.startswith("#"): continue
+    pieces = line.split()
+    if not (len(pieces) == 2 or len(pieces) == 3):
+      raise ValueError("malformed filesmap line: \"%s\"" % (line,))
+    file_size = zip.getinfo("RADIO/"+pieces[0]).file_size
+    d[pieces[0]] = (pieces[1], None, file_size)
+  return d
+
+def GetRadioFiles(z):
+  out = {}
+  for info in z.infolist():
+    if info.filename.startswith("RADIO/") and (info.filename.__len__() > len("RADIO/")):
+      fn = "RADIO/" + info.filename[6:]
+      out[fn] = fn
+  return out
+
+def InstallRawImage(image_data, api_version, input_zip, fn, info, filesmap):
+  # fn is in RADIO/* format. Extracting just file name.
+  filename = fn[6:]
+  if api_version >= 3:
+    if filename not in filesmap:
+        return
+    partition = filesmap[filename][0]
+    info.script.AppendExtra('package_extract_file("%s", "%s");' % ("firmware-update/" + filename, partition))
+    common.ZipWriteStr(info.output_zip, "firmware-update/" + filename, image_data)
+    return
+  else:
+    print "warning radio-update: no support for api_version less than 3."
+
+def InstallRadioFiles(info):
+  files = GetRadioFiles(info.input_zip)
+  if files == {}:
+    print "warning radio-update: no radio image in input target_files; not flashing radio"
+    return
+  info.script.Print("Patching firmware images...")
+  # Load filesmap file
+  filesmap = LoadFilesMap(info.input_zip)
+  if filesmap == {}:
+      print "warning radio-update: no or invalid filesmap file found. not flashing radio"
+      return
+  for f in files:
+    image_data = info.input_zip.read(f)
+    InstallRawImage(image_data, info.input_version, info.input_zip, f, info, filesmap)
+  return
+
 def FullOTA_InstallEnd(info):
   OTA_InstallEnd(info)
+  InstallRadioFiles(info)
   return
 
 def IncrementalOTA_InstallEnd(info):
   OTA_InstallEnd(info)
+  InstallRadioFiles(info)
   return
 
 def AddImage(info, basename, dest):
