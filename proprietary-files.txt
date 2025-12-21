@@ -39,8 +39,6 @@ vendor/lib/rfsa/adsp/libsns_device_mode_skel.so
 vendor/lib/rfsa/adsp/libsns_low_lat_stream_skel.so
 
 # Audio
-odm/etc/sound_trigger_platform_info.xml
-odm/lib64/libaudioEngineerTest.so
 vendor/lib/libacdb-fts.so
 vendor/lib/libacdbloader.so
 vendor/lib/libacdbrtac.so
@@ -57,11 +55,6 @@ vendor/lib64/libqtigef.so
 # Audio firmware
 odm/firmware/tfa98xx.cnt
 vendor/firmware/dbmd4_va_fw.bin
-
-# Audio hardware
-vendor/lib/libadm.so
-vendor/lib/libaudio_log_utils.so
-vendor/lib64/libaudio_log_utils.so
 
 # Audio soundtrigger
 vendor/lib/hw/sound_trigger.primary.sdm710.so
