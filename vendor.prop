@@ -165,10 +165,6 @@ persist.mm.enable.prefetch=true
 qcom.hw.aac.encoder=true
 vendor.mm.enable.qcom_parser=46003442
 
-# NFC
-ro.hardware.nfc_nci=nqx.default
-ro.nfc.port=I2C
-
 # Netflix
 ro.netflix.bsp_rev=Q670-14477-1
 
