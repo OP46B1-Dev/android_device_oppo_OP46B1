@@ -76,7 +76,7 @@ public class CameraMotorService extends Service implements Handler.Callback {
 
                 @Override
                 public void onCameraUnavailable(@NonNull String cameraId) {
-                    super.onCameraAvailable(cameraId);
+                    super.onCameraUnavailable(cameraId);
 
                     if (cameraId.equals(FRONT_CAMERA_ID)) {
                         mIsFontCameraOn = true;
