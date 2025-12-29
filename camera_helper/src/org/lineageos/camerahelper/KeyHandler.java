@@ -10,6 +10,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.hardware.camera2.CameraAccessException;
+import android.hardware.camera2.CameraManager;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -29,6 +31,9 @@ public class KeyHandler implements DeviceKeyHandler {
     private static final int MOTOR_EVENT_DOWN = 188;
     private static final int MOTOR_EVENT_DOWN_ABNORMAL = 189;
     private static final int MOTOR_EVENT_DOWN_NORMAL = 190;
+
+    // Camera ID
+    private static final String FLASHLIGHT_CAMERA_ID = "0";
 
     private final Context mContext;
 
@@ -72,6 +77,9 @@ public class KeyHandler implements DeviceKeyHandler {
     }
 
     private void showCameraMotorCannotGoDownWarning() {
+        // Close flashlight
+        closeFlashlight();
+
         // Show the alert
         new Handler(Looper.getMainLooper()).post(() -> {
             Context packageContext = getPackageContext();
@@ -94,6 +102,9 @@ public class KeyHandler implements DeviceKeyHandler {
     }
 
     private void showCameraMotorCannotGoUpWarning() {
+        // Close flashlight
+        closeFlashlight();
+
         // Show the alert
         new Handler(Looper.getMainLooper()).post(() -> {
             Context packageContext = getPackageContext();
@@ -128,6 +139,9 @@ public class KeyHandler implements DeviceKeyHandler {
     }
 
     private void showCameraMotorPressWarning() {
+        // Close flashlight
+        closeFlashlight();
+
         // Go back to home to close all camera apps first
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_HOME);
@@ -148,5 +162,14 @@ public class KeyHandler implements DeviceKeyHandler {
                 alertDialog.show();
             }
         });
+    }
+
+    private void closeFlashlight() {
+        CameraManager cameraManager = (CameraManager) mContext.getSystemService(Context.CAMERA_SERVICE);
+        try {
+            cameraManager.setTorchMode(FLASHLIGHT_CAMERA_ID, false);
+        } catch (CameraAccessException e) {
+            Log.e(TAG, "Unable to turn off flashlight", e);
+        }
     }
 }
