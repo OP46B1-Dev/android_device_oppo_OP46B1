@@ -297,7 +297,7 @@ case "$target" in
         fi
         case "$hw_platform" in
                 "MTP" | "CDP")
-                #Loop through the sysfs nodes and determine the correct sysfs to change the permission and ownership.
+                # Loop through the sysfs nodes and determine the correct sysfs to change the permission and ownership.
                         for count in 0 1 2 3 4 5 6 7 8 9 10
                         do
                                 dir="/sys/devices/soc/75ba000.i2c/i2c-12/12-0020/input/input"$count
@@ -426,9 +426,9 @@ case "$target" in
         ;;
 esac
 
-#
+# 
 # Make modem config folder and copy firmware config to that folder for RIL
-#
+# 
 if [ -f /data/vendor/modem_config/ver_info.txt ]; then
     prev_version_info=`cat /data/vendor/modem_config/ver_info.txt`
 else
@@ -450,16 +450,16 @@ fi
 chmod g-w /data/vendor/modem_config
 setprop ro.vendor.ril.mbn_copy_completed 1
 
-#check build variant for printk logging
-#current default minimum boot-time-default
+# check build variant for printk logging
+# current default minimum boot-time-default
 buildvariant=`getprop ro.build.type`
 case "$buildvariant" in
     "userdebug" | "eng")
-        #set default loglevel to KERN_INFO
+        # set default loglevel to KERN_INFO
         echo "4 6 1 7" > /proc/sys/kernel/printk
         ;;
     *)
-        #set default loglevel to KERN_WARNING
+        # set default loglevel to KERN_WARNING
         echo "4 4 1 4" > /proc/sys/kernel/printk
         ;;
 esac

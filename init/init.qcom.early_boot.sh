@@ -60,7 +60,7 @@ fi
 
 log -t BOOT -p i "MSM target '$1', SoC '$soc_hwplatform', HwID '$soc_hwid', SoC ver '$soc_hwver'"
 
-#For drm based display driver
+# For drm based display driver
 vbfile=/sys/module/drm/parameters/vblankoffdelay
 if [ -w $vbfile ]; then
     echo -1 >  $vbfile
@@ -69,7 +69,7 @@ else
 fi
 
 function set_density_by_fb() {
-    #put default density based on width
+    # put default density based on width
     if [ -z $fb_width ]; then
         setprop vendor.display.lcd_density 320
     else
@@ -80,9 +80,9 @@ function set_density_by_fb() {
         elif [ $fb_width -ge 1080 ]; then
            setprop vendor.display.lcd_density 480
         elif [ $fb_width -ge 720 ]; then
-           setprop vendor.display.lcd_density 320 #for 720X1280 resolution
+           setprop vendor.display.lcd_density 320 # for 720X1280 resolution
         elif [ $fb_width -ge 480 ]; then
-            setprop vendor.display.lcd_density 240 #for 480X854 QRD resolution
+            setprop vendor.display.lcd_density 240 # for 480X854 QRD resolution
         else
             setprop vendor.display.lcd_density 160
         fi
@@ -163,14 +163,14 @@ case "$target" in
             ;;
         esac
 
-        #Set up composition type based on the target
+        # Set up composition type based on the target
         case "$soc_hwid" in
             87)
                 #8960
                 setprop debug.composition.type dyn
                 ;;
             153|154|155|156|157|138)
-                #8064 V2 PRIME | 8930AB | 8630AB | 8230AB | 8030AB | 8960AB
+                # 8064 V2 PRIME | 8930AB | 8630AB | 8230AB | 8030AB | 8960AB
                 setprop debug.composition.type c2d
                 ;;
             *)
@@ -410,8 +410,8 @@ case "$target" in
                     setprop vendor.media.target.version 1
                 fi
                 ;;
-    #Set property to differentiate SDM660 & SDM455
-    #SOC ID for SDM455 is 385
+    # Set property to differentiate SDM660 & SDM455
+    # SOC ID for SDM455 is 385
     "sdm660")
         case "$soc_hwplatform" in
             *)
@@ -433,7 +433,7 @@ case "$target" in
 esac
 
 baseband=`getprop ro.baseband`
-#enable atfwd daemon all targets except sda, apq, qcs
+# enable atfwd daemon all targets except sda, apq, qcs
 case "$baseband" in
     "apq" | "sda" | "qcs" )
         setprop persist.vendor.radio.atfwd.start false;;
@@ -441,10 +441,10 @@ case "$baseband" in
         setprop persist.vendor.radio.atfwd.start true;;
 esac
 
-#set default lcd density
-#Since lcd density has read only
-#property, it will not overwrite previous set
-#property if any target is setting forcefully.
+# set default lcd density
+# Since lcd density has read only
+# property, it will not overwrite previous set
+# property if any target is setting forcefully.
 set_density_by_fb
 
 
@@ -490,7 +490,7 @@ esac
 # the HDMI(dtv panel)
 
 function set_perms() {
-    #Usage set_perms <filename> <ownership> <permission>
+    # Usage set_perms <filename> <ownership> <permission>
     chown -h $2 $1
     chmod $3 $1
 }

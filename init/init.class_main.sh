@@ -148,7 +148,7 @@ esac
 #
 fake_batt_capacity=`getprop persist.vendor.bms.fake_batt_capacity`
 case "$fake_batt_capacity" in
-    "") ;; #Do nothing here
+    "") ;; # Do nothing here
     * )
     echo "$fake_batt_capacity" > /sys/class/power_supply/battery/capacity
     ;;
