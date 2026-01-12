@@ -141,7 +141,7 @@ TARGET_RELEASETOOLS_EXTENSIONS := $(DEVICE_PATH)/releasetools
 VENDOR_SECURITY_PATCH := 2022-04-05
 
 # Sepolicy
-include device/qcom/sepolicy_vndr/SEPolicy.mk
+include device/qcom/sepolicy_vndr-legacy-um/SEPolicy.mk
 
 # Treble
 BOARD_VNDK_VERSION := current
