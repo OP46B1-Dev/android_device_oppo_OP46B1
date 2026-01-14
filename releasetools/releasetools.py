@@ -22,6 +22,9 @@ def LoadFilesMap(zip):
   except KeyError:
     print("Warning: could not find RADIO/filesmap in %s." % zip)
     data = ""
+  # Ensure we have a text string in Python 3
+  if isinstance(data, bytes):
+    data = data.decode("utf-8", errors="replace")
   d = {}
   for line in data.splitlines():
     line = line.strip()
