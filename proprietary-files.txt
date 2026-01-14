@@ -94,7 +94,6 @@ vendor/lib64/libbtnv.so|07e031527e60ce5e62a5017fd1d7ff83ef1aafcf
 
 # Bluetooth (A2DP) - from PNX - RKQ1.200906.002
 vendor/lib/btaudio_offload_if.so|7c032ba00c5bbb7a6e265339dc63341888efe55f
-vendor/lib/hw/audio.bluetooth_qti.default.so|42a280552aea8dbce25e3e77b85ac5338cf3e7e5
 vendor/lib/hw/vendor.qti.hardware.bluetooth_audio@2.0-impl.so|4bed8d0cc4d2747a6f48fbbff5cd01dbc42c28d8
 vendor/lib/hw/vendor.qti.hardware.bluetooth_sar@1.1-impl.so|61c91107a4032634f1520340e75f015e44fd8dbc
 vendor/lib/hw/vendor.qti.hardware.btconfigstore@1.0-impl.so|cd605197212985e56a3b0e978051c3e5ed74061a
@@ -103,7 +102,6 @@ vendor/lib/libbluetooth_audio_session_qti.so|f247b051439bc769f614893a011a75a1557
 vendor/lib/vendor.qti.hardware.bluetooth_sar@1.0.so|7e4587a1ac13de4d1ee8463b3aae487346f31b12
 vendor/lib/vendor.qti.hardware.bluetooth_sar@1.1.so|fbce94fed6a22fd527506d14d10a4df785b8fa25
 vendor/lib64/btaudio_offload_if.so|3a596dd1aec2c4bd27656cddc8d5536e2d36cc33
-vendor/lib64/hw/audio.bluetooth_qti.default.so|edf9370638b02196d173d52cd12f12f7a5baa690
 vendor/lib64/hw/vendor.qti.hardware.bluetooth_audio@2.0-impl.so|03a0e277fc46f40c4d497c9e59fc96a93e6b45d7
 vendor/lib64/hw/vendor.qti.hardware.bluetooth_sar@1.1-impl.so|a97a6c330c932176acee0bce820c6e737778aed4
 vendor/lib64/hw/vendor.qti.hardware.btconfigstore@1.0-impl.so|2c5480b33615179e1a8a67bf93e190e8647c68b4
