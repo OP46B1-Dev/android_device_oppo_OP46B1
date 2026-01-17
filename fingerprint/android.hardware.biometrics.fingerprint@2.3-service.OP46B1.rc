@@ -1,4 +1,8 @@
 on post-fs-data
+    # Fingerprint dirs (Common)
+    mkdir /data/vendor/fingerprint 0770 system system
+    mkdir /mnt/vendor/persist/fingerprint 0770 system system
+
     # Goodix FP
     mkdir /data/gf_data 0700 system system
     mkdir /data/system/gf_data 0700 system system
@@ -20,6 +24,11 @@ on boot
     chown system system /sys/kernel/oppo_display/aod_light_mode_set
     chown system system /sys/kernel/oppo_display/power_status
     chown system system /sys/kernel/oppo_display/dimlayer_bl_en
+
+service vendor.fps_hal /odm/bin/hw/vendor.oplus.hardware.biometrics.fingerprint@2.1-service
+    class late_start
+    user system
+    group system input uhid
 
 service vendor.fps_hal.OP46B1 /vendor/bin/hw/android.hardware.biometrics.fingerprint@2.3-service.OP46B1
     class late_start

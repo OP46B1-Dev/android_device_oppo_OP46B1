@@ -143,9 +143,6 @@ PRODUCT_PACKAGES += \
     android.hardware.biometrics.fingerprint@2.3.vendor \
     vendor.oplus.hardware.biometrics.fingerprint@2.1
 
-PRODUCT_PACKAGES += \
-    init.oplus.fingerprint.rc
-
 # GNSS
 PRODUCT_PACKAGES += \
     android.hardware.gnss@1.1.vendor \
