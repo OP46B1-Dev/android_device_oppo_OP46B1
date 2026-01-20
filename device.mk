@@ -13,9 +13,6 @@ $(call inherit-product, vendor/oppo/OP46B1/OP46B1-vendor.mk)
 # Setup dalvik vm configs
 $(call inherit-product, frameworks/native/build/phone-xhdpi-6144-dalvik-heap.mk)
 
-# APEX
-PRODUCT_COMPRESSED_APEX := false
-
 # API levels
 PRODUCT_SHIPPING_API_LEVEL := 28
 
