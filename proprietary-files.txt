@@ -506,15 +506,15 @@ odm/lib64/libwvhidl.so
 odm/lib64/mediadrm/libwvdrmengine.so
 
 # DRM (widevine firmware)
-odm/vendor/firmware/widevine.b00
-odm/vendor/firmware/widevine.b01
-odm/vendor/firmware/widevine.b02
-odm/vendor/firmware/widevine.b03
-odm/vendor/firmware/widevine.b04
-odm/vendor/firmware/widevine.b05
-odm/vendor/firmware/widevine.b06
-odm/vendor/firmware/widevine.b07
-odm/vendor/firmware/widevine.mdt
+odm/vendor/firmware/widevine.b00:odm/firmware/widevine.b00
+odm/vendor/firmware/widevine.b01:odm/firmware/widevine.b01
+odm/vendor/firmware/widevine.b02:odm/firmware/widevine.b02
+odm/vendor/firmware/widevine.b03:odm/firmware/widevine.b03
+odm/vendor/firmware/widevine.b04:odm/firmware/widevine.b04
+odm/vendor/firmware/widevine.b05:odm/firmware/widevine.b05
+odm/vendor/firmware/widevine.b06:odm/firmware/widevine.b06
+odm/vendor/firmware/widevine.b07:odm/firmware/widevine.b07
+odm/vendor/firmware/widevine.mdt:odm/firmware/widevine.mdt
 
 # DSP service
 vendor/bin/dspservice
