@@ -598,15 +598,15 @@ odm/firmware/fastchg/18097/oplus_vooc_fw.bin
 odm/firmware/tp/18097/FW_S3706_SAMSUNG.img
 odm/firmware/tp/18097/FW_S3706_SAMSUNG_FAE.img
 odm/firmware/tp/18097/LIMIT_S3706_SAMSUNG.img
-odm/vendor/firmware/goodixfp.b00
-odm/vendor/firmware/goodixfp.b01
-odm/vendor/firmware/goodixfp.b02
-odm/vendor/firmware/goodixfp.b03
-odm/vendor/firmware/goodixfp.b04
-odm/vendor/firmware/goodixfp.b05
-odm/vendor/firmware/goodixfp.b06
-odm/vendor/firmware/goodixfp.b07
-odm/vendor/firmware/goodixfp.mdt
+odm/vendor/firmware/goodixfp.b00:odm/firmware/goodixfp.b00
+odm/vendor/firmware/goodixfp.b01:odm/firmware/goodixfp.b01
+odm/vendor/firmware/goodixfp.b02:odm/firmware/goodixfp.b02
+odm/vendor/firmware/goodixfp.b03:odm/firmware/goodixfp.b03
+odm/vendor/firmware/goodixfp.b04:odm/firmware/goodixfp.b04
+odm/vendor/firmware/goodixfp.b05:odm/firmware/goodixfp.b05
+odm/vendor/firmware/goodixfp.b06:odm/firmware/goodixfp.b06
+odm/vendor/firmware/goodixfp.b07:odm/firmware/goodixfp.b07
+odm/vendor/firmware/goodixfp.mdt:odm/firmware/goodixfp.mdt
 
 # Gatekeeper
 vendor/bin/hw/android.hardware.gatekeeper@1.0-service-qti
