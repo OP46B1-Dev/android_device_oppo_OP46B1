@@ -63,19 +63,19 @@ BOARD_KERNEL_BASE := 0x00000000
 BOARD_BOOTIMG_HEADER_VERSION := 2
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_CMDLINE := \
+    androidboot.configfs=true \
     androidboot.console=0 \
     androidboot.hardware=qcom \
-    video=vfb:640x400,bpp=32,memsize=3072000 \
-    msm_rtb.filter=0x237 \
-    ehci-hcd.park=3 \
-    lpm_levels.sleep_disabled=1 \
-    service_locator.enable=1 \
-    androidboot.configfs=true \
     androidboot.usbcontroller=a600000.dwc3 \
-    swiotlb=1 \
+    ehci-hcd.park=3 \
+    kpti=off \
     loop.max_part=7 \
+    lpm_levels.sleep_disabled=1 \
+    msm_rtb.filter=0x237 \
     printk.devkmsg=on \
-    kpti=off
+    service_locator.enable=1 \
+    swiotlb=1 \
+    video=vfb:640x400,bpp=32,memsize=3072000
 BOARD_KERNEL_CMDLINE += androidboot.init_fatal_reboot_target=recovery
 # TODO: Set SELinux to Permissive mode
 BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
