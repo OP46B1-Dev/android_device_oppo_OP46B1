@@ -63,10 +63,8 @@ BOARD_KERNEL_BASE := 0x00000000
 BOARD_BOOTIMG_HEADER_VERSION := 2
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_CMDLINE := \
-    console=ttyMSM0,115200n8 \
-    earlycon=msm_geni_serial,0xA90000 \
+    androidboot.console=0 \
     androidboot.hardware=qcom \
-    androidboot.console=ttyMSM0 \
     video=vfb:640x400,bpp=32,memsize=3072000 \
     msm_rtb.filter=0x237 \
     ehci-hcd.park=3 \
