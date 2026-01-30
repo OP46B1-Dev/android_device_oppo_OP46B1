@@ -86,6 +86,9 @@ BOARD_KERNEL_IMAGE_NAME := Image
 TARGET_KERNEL_CONFIG := vendor/sdm670-perf_defconfig vendor/oplus/sdm710-common.config vendor/oplus/Reno.config
 TARGET_KERNEL_SOURCE := kernel/oppo/sdm710
 
+# Lineage Health
+TARGET_HEALTH_CHARGING_CONTROL_SUPPORTS_BYPASS := false
+
 # Partitions
 BOARD_BUILD_SYSTEM_ROOT_IMAGE := false
 BOARD_FLASH_BLOCK_SIZE := 262144 # (BOARD_KERNEL_PAGESIZE * 64)
