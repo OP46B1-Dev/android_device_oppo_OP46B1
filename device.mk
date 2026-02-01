@@ -7,9 +7,6 @@
 # Add common definitions for Qualcomm
 $(call inherit-product, hardware/qcom-caf/common/common.mk)
 
-# Enable updating of APEXes
-$(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
-
 # Inherit the proprietary files
 $(call inherit-product, vendor/oppo/OP46B1/OP46B1-vendor.mk)
 
