@@ -140,6 +140,7 @@ Only the three quirks included above are recognized at this point:
             <Limit name="bitrate" range="1-100000000" />
             <Limit name="frame-rate" range="1-240" />
             <Limit name="concurrent-instances" max="16" />
+            <Feature name="can-swap-width-height" required="true" />
             <Limit name="performance-point-4096x2160" value="24" />
             <Limit name="performance-point-3840x2160" value="30" />
             <Limit name="performance-point-1920x1080" value="120" />
@@ -156,6 +157,7 @@ Only the three quirks included above are recognized at this point:
             <Limit name="bitrate" range="1-120000000" />
             <Limit name="frame-rate" range="1-240" />
             <Limit name="concurrent-instances" max="16" />
+             <Feature name="can-swap-width-height" required="true" />
             <Limit name="performance-point-4096x2304" value="24" />
             <Limit name="performance-point-3840x2160" value="30" />
             <Limit name="performance-point-1920x1080" value="120" />
@@ -172,6 +174,7 @@ Only the three quirks included above are recognized at this point:
             <Limit name="bitrate" range="1-100000000" />
             <Limit name="frame-rate" range="1-240" />
             <Limit name="concurrent-instances" max="16" />
+            <Feature name="can-swap-width-height" required="true" />
             <Limit name="performance-point-4096x2160" value="24" />
             <Limit name="performance-point-3840x2160" value="30" />
             <Limit name="performance-point-1920x1080" value="120" />
@@ -189,6 +192,7 @@ Only the three quirks included above are recognized at this point:
             <Limit name="bitrate" range="1-2000000" />
             <Limit name="frame-rate" range="1-30" />
             <Limit name="concurrent-instances" max="16" />
+            <Feature name="can-swap-width-height" required="true" />
             <Limit name="performance-point-720x480" value="30" />
         </MediaCodec>
         <MediaCodec name="OMX.qcom.video.encoder.mpeg4sw" type="video/mp4v-es" >
@@ -203,6 +207,7 @@ Only the three quirks included above are recognized at this point:
              <Limit name="frame-rate" range="1-30" />
              <Attribute name="software-codec" />
              <Limit name="concurrent-instances" max="16" />
+             <Feature name="can-swap-width-height" required="true" />
              <Limit name="performance-point-1280x720" value="30" />
         </MediaCodec>
     </Encoders>
@@ -219,6 +224,7 @@ Only the three quirks included above are recognized at this point:
             <Limit name="frame-rate" range="1-240" />
             <Feature name="adaptive-playback" />
             <Limit name="concurrent-instances" max="16" />
+            <Feature name="can-swap-width-height" required="true" />
             <Limit name="performance-point-4096x2160" value="24" />
             <Limit name="performance-point-3840x2160" value="30" />
             <Limit name="performance-point-1920x1080" value="120" />
@@ -235,6 +241,7 @@ Only the three quirks included above are recognized at this point:
             <Limit name="bitrate" range="1-35000000" />
             <Limit name="frame-rate" range="1-30" />
             <Feature name="adaptive-playback" />
+            <Feature name="can-swap-width-height" required="true" />
             <Feature name="secure-playback" required="true" />
             <Limit name="concurrent-instances" max="6" />
             <Limit name="performance-point-4096x2160" value="24" />
@@ -252,6 +259,7 @@ Only the three quirks included above are recognized at this point:
             <Limit name="frame-rate" range="1-30" />
             <Feature name="adaptive-playback" />
             <Limit name="concurrent-instances" max="16" />
+            <Feature name="can-swap-width-height" required="true" />
             <Limit name="performance-point-1920x1088" value="30" />
         </MediaCodec>
         <MediaCodec name="OMX.qcom.video.decoder.mpeg2.secure" type="video/mpeg2" >
@@ -264,6 +272,7 @@ Only the three quirks included above are recognized at this point:
             <Limit name="bitrate" range="1-35000000" />
             <Limit name="frame-rate" range="1-30" />
             <Feature name="adaptive-playback" />
+            <Feature name="can-swap-width-height" required="true" />
             <Feature name="secure-playback" required="true" />
             <Limit name="concurrent-instances" max="6" />
             <Limit name="performance-point-1920x1088" value="30" />
@@ -279,6 +288,7 @@ Only the three quirks included above are recognized at this point:
             <Limit name="frame-rate" range="1-240" />
             <Feature name="adaptive-playback" />
             <Limit name="concurrent-instances" max="16" />
+            <Feature name="can-swap-width-height" required="true" />
             <Limit name="performance-point-4096x2160" value="24" />
             <Limit name="performance-point-3840x2160" value="30" />
             <Limit name="performance-point-1920x1080" value="120" />
@@ -294,6 +304,7 @@ Only the three quirks included above are recognized at this point:
             <Limit name="bitrate" range="1-120000000" />
             <Limit name="frame-rate" range="1-240" />
             <Feature name="adaptive-playback" />
+            <Feature name="can-swap-width-height" required="true" />
             <Limit name="concurrent-instances" max="6" />
             <Limit name="performance-point-4096x2304" value="24" />
             <Limit name="performance-point-3840x2160" value="30" />
@@ -310,6 +321,7 @@ Only the three quirks included above are recognized at this point:
             <Limit name="bitrate" range="1-35000000" />
             <Limit name="frame-rate" range="1-30" />
             <Feature name="adaptive-playback" />
+            <Feature name="can-swap-width-height" required="true" />
             <Feature name="secure-playback" required="true" />
             <Limit name="concurrent-instances" max="6" />
             <Limit name="performance-point-4096x2304" value="24" />
@@ -327,6 +339,7 @@ Only the three quirks included above are recognized at this point:
             <Limit name="frame-rate" range="1-240" />
             <Feature name="adaptive-playback" />
             <Limit name="concurrent-instances" max="16" />
+            <Feature name="can-swap-width-height" required="true" />
             <Limit name="performance-point-4096x2160" value="24" />
             <Limit name="performance-point-3840x2160" value="30" />
             <Limit name="performance-point-1920x1080" value="120" />
@@ -342,6 +355,7 @@ Only the three quirks included above are recognized at this point:
             <Limit name="bitrate" range="1-35000000" />
             <Limit name="frame-rate" range="1-30" />
             <Feature name="adaptive-playback" />
+            <Feature name="can-swap-width-height" required="true" />
             <Feature name="secure-playback" required="true" />
             <Limit name="concurrent-instances" max="6" />
             <Limit name="performance-point-4096x2160" value="24" />
@@ -360,6 +374,7 @@ Only the three quirks included above are recognized at this point:
              <Limit name="frame-rate" range="1-30" />
              <Feature name="adaptive-playback" />
              <Limit name="concurrent-instances" max="16" />
+             <Feature name="can-swap-width-height" required="true" />
              <Limit name="performance-point-720x480" value="30" />
         </MediaCodec>
         <MediaCodec name="OMX.qti.video.decoder.mpeg4sw" type="video/mp4v-es">
@@ -372,6 +387,7 @@ Only the three quirks included above are recognized at this point:
                 <Limit name="bitrate" range="1-40000000" />
                 <Limit name="frame-rate" range="1-30" />
                 <Limit name="concurrent-instances" max="16" />
+                <Feature name="can-swap-width-height" required="true" />
                 <Limit name="performance-point-1920x1088" value="30" />
         </MediaCodec>
         <MediaCodec name="OMX.qti.video.decoder.vc1sw" type="video/x-ms-wmv" >
@@ -385,6 +401,7 @@ Only the three quirks included above are recognized at this point:
             <Limit name="frame-rate" range="1-30" />
             <Feature name="adaptive-playback" />
             <Limit name="concurrent-instances" max="16" />
+            <Feature name="can-swap-width-height" required="true" />
             <Limit name="performance-point-1920x1088" value="30" />
         </MediaCodec>
     </Decoders>
