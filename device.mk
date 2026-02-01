@@ -93,6 +93,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     OnePlusCameraHelper
 
+# DebugFS
+PRODUCT_SET_DEBUGFS_RESTRICTIONS := true
+
 # Display
 PRODUCT_PACKAGES += \
     android.hardware.graphics.mapper@2.0-impl-qti-display \
