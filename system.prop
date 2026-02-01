@@ -31,6 +31,9 @@ persist.rmnet.data.enable=true
 persist.vendor.data.mode=concurrent
 ro.vendor.use_data_netmgrd=true
 
+# Dex2oat
+dalvik.vm.dex2oat64.enabled=true
+
 # FUSE
 persist.fuse_sdcard=true
 
