@@ -90,6 +90,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     OnePlusCameraHelper
 
+# Configstore
+PRODUCT_PACKAGES += \
+    disable_configstore
+
 # DebugFS
 PRODUCT_SET_DEBUGFS_RESTRICTIONS := true
 
