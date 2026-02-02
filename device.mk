@@ -43,6 +43,7 @@ PRODUCT_PACKAGES += \
     libexthwplugin \
     libhdmiedid \
     libhfp \
+    libion.vendor \
     libqcompostprocbundle \
     libqcomvisualizer \
     libqcomvoiceprocessing \
