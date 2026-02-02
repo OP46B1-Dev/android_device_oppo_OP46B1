@@ -148,7 +148,8 @@ PRODUCT_PACKAGES += \
 # GNSS
 PRODUCT_PACKAGES += \
     android.hardware.gnss@1.1.vendor \
-    android.hardware.gnss@2.1.vendor
+    android.hardware.gnss@2.1.vendor \
+    libsqlite.vendor
 
 # GNSS configs
 PRODUCT_COPY_FILES += \
