@@ -30,7 +30,7 @@ service vendor.fps_hal /odm/bin/hw/vendor.oplus.hardware.biometrics.fingerprint@
     user system
     group system input uhid
 
-service vendor.fps_hal.OP46B1 /vendor/bin/hw/android.hardware.biometrics.fingerprint@2.3-service.OP46B1
+service vendor.fps_hal.OP46B1 /odm/bin/hw/android.hardware.biometrics.fingerprint@2.3-service.OP46B1
     class late_start
     user system
     group system input uhid

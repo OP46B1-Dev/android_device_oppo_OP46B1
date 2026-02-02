@@ -23,7 +23,7 @@ cc_binary {
         "android.hardware.biometrics.fingerprint@2.3",
         "vendor.oplus.hardware.biometrics.fingerprint@2.1",
     ],
-    vendor: true,
+    device_specific: true,
 }
 
 cc_library_static {
