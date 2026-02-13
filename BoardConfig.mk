@@ -83,6 +83,7 @@ TARGET_KERNEL_CLANG_COMPILE := true
 BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 BOARD_KERNEL_SEPARATED_DTBO := true
 BOARD_KERNEL_IMAGE_NAME := Image
+BOARD_RAMDISK_USE_LZ4 := true
 TARGET_KERNEL_CONFIG := vendor/sdm670-perf_defconfig vendor/debugfs.config vendor/oplus/sdm710-common.config vendor/oplus/Reno.config
 TARGET_KERNEL_SOURCE := kernel/oppo/sdm710
 
