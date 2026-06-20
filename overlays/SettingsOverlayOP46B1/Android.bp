@@ -1,0 +1,6 @@
+runtime_resource_overlay {
+    name: "SettingsOverlayOP46B1",
+    theme: "SettingsOverlayOP46B1",
+    sdk_version: "current",
+    device_specific: true
+}
