@@ -257,6 +257,7 @@ PRODUCT_PACKAGES += \
     FrameworkResOverlayOP46B1 \
     LineageSdkResOverlayOP46B1 \
     SettingsOverlayOP46B1 \
+    SettingsProviderOverlayOP46B1 \
     SystemUIOverlayOP46B1 \
     TelephonyResOverlayOP46B1
 
