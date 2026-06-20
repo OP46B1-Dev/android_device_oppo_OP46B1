@@ -1,8 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.lineageos.frameworkresoverlay.OP46B1">
+    package="org.lineageos.frameworkres.overlay.OP46B1">
     <application android:hasCode="false" />
     <overlay android:isStatic="true"
              android:priority="1"
-             android:targetPackage="android"
-             android:targetName="OP46B1FrameworkResOverlay" />
+             android:targetPackage="android" />
 </manifest>
