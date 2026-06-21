@@ -253,6 +253,7 @@ PRODUCT_PACKAGES += \
 
 # Overlay
 PRODUCT_PACKAGES += \
+    ApertureOverlayOP46B1 \
     CarrierConfigOverlayOP46B1 \
     FrameworkResOverlayOP46B1 \
     LineageSdkResOverlayOP46B1 \

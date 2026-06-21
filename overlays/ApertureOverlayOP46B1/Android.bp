@@ -1,0 +1,6 @@
+runtime_resource_overlay {
+    name: "ApertureOverlayOP46B1",
+    theme: "ApertureOverlayOP46B1",
+    sdk_version: "current",
+    product_specific: true
+}
