@@ -795,10 +795,6 @@ vendor/bin/mlid
 vendor/lib64/libminksocket.so
 
 # Motor
-odm/bin/hw/vendor.oplus.hardware.motorcontrol@1.0-service
-odm/etc/init/vendor.oplus.hardware.motorcontrol@1.0-service.rc
-odm/etc/vintf/manifest/manifest_oplus_motorcontrol.xml
-odm/lib64/vendor.oplus.hardware.motorcontrol@1.0.so
 vendor/etc/init/hw/init.oppo.vendor.motor.rc
 
 # NFC

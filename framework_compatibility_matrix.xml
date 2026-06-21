@@ -58,14 +58,6 @@
         </interface>
     </hal>
     <hal format="hidl" optional="true">
-        <name>vendor.oplus.hardware.motorcontrol</name>
-        <version>1.0</version>
-        <interface>
-            <name>IMotorControl</name>
-            <instance>default</instance>
-        </interface>
-    </hal>
-    <hal format="hidl" optional="true">
         <name>vendor.oplus.hardware.radio</name>
         <version>1.0</version>
         <interface>
