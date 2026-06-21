@@ -27,6 +27,9 @@ public class CameraMotorService extends Service implements Handler.Callback {
 
     public static final int MSG_CAMERA_CLOSED = 1000;
     public static final int MSG_CAMERA_OPEN = 1001;
+    public static final int MSG_MOTOR_DECISION = 1002;
+
+    public static final int MOTOR_DECISION_TIMEOUT_MS = 2000; // ms
 
     private Handler mHandler = new Handler(this);
 
@@ -35,6 +38,8 @@ public class CameraMotorService extends Service implements Handler.Callback {
 
     private boolean mIsFlashlightOn = false;
     private boolean mIsFontCameraOn = false;
+
+    private long mMotorDecisionEvent;
 
     private CameraManager.TorchCallback mTorchCallback =
             new CameraManager.TorchCallback() {
@@ -87,6 +92,13 @@ public class CameraMotorService extends Service implements Handler.Callback {
             };
 
     private void MotorControl() {
+        // Reset the motor decision countdown to MOTOR_DECISION_TIMEOUT_MS on every call.
+        mMotorDecisionEvent = SystemClock.elapsedRealtime();
+        if (mHandler.hasMessages(MSG_MOTOR_DECISION)) {
+            mHandler.removeMessages(MSG_MOTOR_DECISION);
+        }
+        mHandler.sendEmptyMessageDelayed(MSG_MOTOR_DECISION, MOTOR_DECISION_TIMEOUT_MS);
+
         if (mIsFlashlightOn || mIsFontCameraOn) {
             mOpenEvent = SystemClock.elapsedRealtime();
             if (SystemClock.elapsedRealtime() - mClosedEvent < CAMERA_EVENT_DELAY_TIME
@@ -135,6 +147,27 @@ public class CameraMotorService extends Service implements Handler.Callback {
     @Override
     public boolean handleMessage(Message msg) {
         switch (msg.what) {
+            case MSG_MOTOR_DECISION:
+                if (SystemClock.elapsedRealtime() - mMotorDecisionEvent
+                        < MOTOR_DECISION_TIMEOUT_MS) {
+                    // Not elapsed yet (a MotorControl() call reset the countdown):
+                    // reschedule for the remaining time.
+                    mHandler.sendEmptyMessageDelayed(MSG_MOTOR_DECISION,
+                            MOTOR_DECISION_TIMEOUT_MS
+                                    - (SystemClock.elapsedRealtime() - mMotorDecisionEvent));
+                } else {
+                    // Countdown elapsed: re-check camera/flashlight status and
+                    // dispatch the camera module raise/retract event.
+                    if (mIsFlashlightOn || mIsFontCameraOn) {
+                        CameraMotorController.setMotorDirection(
+                                CameraMotorController.DIRECTION_UP);
+                    } else {
+                        CameraMotorController.setMotorDirection(
+                                CameraMotorController.DIRECTION_DOWN);
+                    }
+                    CameraMotorController.setMotorEnabled();
+                }
+                break;
             case MSG_CAMERA_CLOSED:
                 CameraMotorController.setMotorDirection(CameraMotorController.DIRECTION_DOWN);
                 CameraMotorController.setMotorEnabled();
