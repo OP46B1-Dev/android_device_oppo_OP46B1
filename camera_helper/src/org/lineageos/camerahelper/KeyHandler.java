@@ -6,6 +6,7 @@
 
 package org.lineageos.camerahelper;
 
+import android.annotation.NonNull;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -37,8 +38,39 @@ public class KeyHandler implements DeviceKeyHandler {
 
     private final Context mContext;
 
+    // Tracks whether the flashlight is currently on, so we can tell whether a
+    // motor raise was triggered by the flashlight (rather than a front camera
+    // app). KeyHandler runs in a separate process from CameraMotorService, so
+    // it maintains its own torch state.
+    private boolean mIsFlashlightOn = false;
+
+    private final CameraManager.TorchCallback mTorchCallback =
+            new CameraManager.TorchCallback() {
+                @Override
+                public void onTorchModeChanged(@NonNull String cameraId, boolean enabled) {
+                    super.onTorchModeChanged(cameraId, enabled);
+                    if (FLASHLIGHT_CAMERA_ID.equals(cameraId)) {
+                        mIsFlashlightOn = enabled;
+                    }
+                }
+
+                @Override
+                public void onTorchModeUnavailable(@NonNull String cameraId) {
+                    super.onTorchModeUnavailable(cameraId);
+                    if (FLASHLIGHT_CAMERA_ID.equals(cameraId)) {
+                        mIsFlashlightOn = false;
+                    }
+                }
+            };
+
     public KeyHandler(Context context) {
         mContext = context;
+        CameraManager cameraManager =
+                (CameraManager) mContext.getSystemService(Context.CAMERA_SERVICE);
+        if (cameraManager != null) {
+            cameraManager.registerTorchCallback(mTorchCallback,
+                    new Handler(Looper.getMainLooper()));
+        }
     }
 
     public KeyEvent handleKeyEvent(KeyEvent event) {
@@ -102,6 +134,10 @@ public class KeyHandler implements DeviceKeyHandler {
     }
 
     private void showCameraMotorCannotGoUpWarning() {
+        // Remember whether the flashlight was on before we close it. Only if the
+        // raise was triggered by the flashlight do we reopen it on retry.
+        boolean wasFlashlightOn = mIsFlashlightOn;
+
         // Close flashlight
         closeFlashlight();
 
@@ -117,6 +153,14 @@ public class KeyHandler implements DeviceKeyHandler {
                             CameraMotorController.setMotorDirection(
                                     CameraMotorController.DIRECTION_UP);
                             CameraMotorController.setMotorEnabled();
+
+                            // Reopen the flashlight only if the raise was
+                            // triggered by it, so that a front-camera app
+                            // raising the motor does not unexpectedly turn the
+                            // flashlight on.
+                            if (wasFlashlightOn) {
+                                openFlashlight();
+                            }
                         })
                         .setPositiveButton(R.string.close, (dialog, which) -> {
                             // Close the camera
@@ -170,6 +214,15 @@ public class KeyHandler implements DeviceKeyHandler {
             cameraManager.setTorchMode(FLASHLIGHT_CAMERA_ID, false);
         } catch (CameraAccessException e) {
             Log.e(TAG, "Unable to turn off flashlight", e);
+        }
+    }
+
+    private void openFlashlight() {
+        CameraManager cameraManager = (CameraManager) mContext.getSystemService(Context.CAMERA_SERVICE);
+        try {
+            cameraManager.setTorchMode(FLASHLIGHT_CAMERA_ID, true);
+        } catch (CameraAccessException e) {
+            Log.e(TAG, "Unable to turn on flashlight", e);
         }
     }
 }
