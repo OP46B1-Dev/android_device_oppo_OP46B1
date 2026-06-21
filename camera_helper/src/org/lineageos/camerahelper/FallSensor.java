@@ -38,7 +38,7 @@ public class FallSensor implements SensorEventListener {
 
         for (Sensor sensor : mSensorManager.getSensorList(Sensor.TYPE_ALL)) {
             if (DEBUG) Log.d(TAG, "Sensor type: " + sensor.getStringType());
-            if (TextUtils.equals(sensor.getStringType(), "free_fall")) {
+            if (TextUtils.equals(sensor.getStringType(), "free_fall_detect")) {
                 if (DEBUG) Log.d(TAG, "Found fall sensor");
                 mSensor = sensor;
                 break;
@@ -95,7 +95,7 @@ public class FallSensor implements SensorEventListener {
     void enable() {
         if (DEBUG) Log.d(TAG, "Enabling");
         mExecutorService.submit(() -> {
-            mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_FASTEST);
+            mSensorManager.registerListener(this, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
         });
     }
 
