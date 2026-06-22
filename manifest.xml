@@ -83,11 +83,6 @@
         <fqname>@1.0::IOmxStore/default</fqname>
     </hal>
     <hal format="hidl">
-        <name>android.hardware.power</name>
-        <transport>hwbinder</transport>
-        <fqname>@1.0::IPower/default</fqname>
-    </hal>
-    <hal format="hidl">
         <name>vendor.nxp.nxpnfc</name>
         <transport>hwbinder</transport>
         <version>1.0</version>
@@ -274,11 +269,6 @@
         <name>vendor.qti.hardware.fstman</name>
         <transport>hwbinder</transport>
         <fqname>@1.0::IFstManager/default</fqname>
-    </hal>
-    <hal format="hidl">
-        <name>vendor.qti.hardware.perf</name>
-        <transport>hwbinder</transport>
-        <fqname>@2.2::IPerf/default</fqname>
     </hal>
     <hal format="hidl">
         <name>vendor.qti.hardware.qccvndhal</name>
