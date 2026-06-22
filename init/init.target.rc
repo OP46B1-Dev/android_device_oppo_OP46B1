@@ -102,7 +102,6 @@ on boot
     setprop vendor.usb.rmnet.inst.name "rmnet"
     setprop vendor.usb.dpl.inst.name "dpl"
     setprop vendor.usb.qdss.inst.name "qdss"
-    setprop sys.usb.configfs 1
 
 # start camera server as daemon
 # service qcamerasvr /system/bin/mm-qcamera-daemon
@@ -140,9 +139,6 @@ on boot
     chown system system /sys/class/leds/green/blink
     chown system system /sys/class/leds/blue/blink
 
-on property:init.svc.vendor.charger=running
-    setprop sys.usb.configfs 1
-
 service ppd /vendor/bin/mm-pp-dpps
     class late_start
     user system
@@ -158,9 +154,6 @@ on property:init.svc.vendor.hwcomposer-2-3=running
 
 on property:init.svc.vendor.hwcomposer-2-3=restarting
     stop ppd
-
-on property:init.svc.vendor.charger=running
-    setprop sys.usb.configfs 1
 
 service vendor.contexthub-hal-1-0 /vendor/bin/hw/android.hardware.contexthub@1.0-service
     override
