@@ -171,11 +171,6 @@
         <fqname>@1.0::IOplusAppRadio/oplus_app_slot2</fqname>
     </hal>
     <hal format="hidl">
-        <name>vendor.oplus.hardware.biometrics.face</name>
-        <transport>hwbinder</transport>
-        <fqname>@1.0::IBiometricsFace/default</fqname>
-    </hal>
-    <hal format="hidl">
         <name>vendor.oplus.hardware.biometrics.fingerprint</name>
         <transport>hwbinder</transport>
         <fqname>@2.1::IBiometricsFingerprint/default</fqname>
