@@ -1,11 +1,5 @@
-# Bluetooth
-persist.vendor.btstack.aac_frm_ctl.enabled=true
-ro.bluetooth.library_name=libbluetooth_qti.so
-
 # Bringup properties
-persist.sys.force_sw_gles=1
 qemu.hw.mainkeys=0
-ro.kernel.qemu.gles=0
 
 # CNE
 persist.vendor.cne.feature=1

@@ -27,7 +27,6 @@ ro.af.client_heap_size_kbyte=7168
 ro.vendor.audio.sdk.fluencetype=none
 ro.vendor.audio.sdk.ssr=false
 tunnel.audio.encode=true
-use.voice.path.for.pcm.voip=true
 vendor.audio.apptype.multirec.enabled=false
 vendor.audio.dolby.ds2.enabled=false
 vendor.audio.dolby.ds2.hardbypass=false
@@ -172,8 +171,6 @@ media.stagefright.enable-scan=true
 media.stagefright.thumbnail.prefer_hw_codecs=true
 mmp.enable.3g2=true
 persist.mm.enable.prefetch=true
-qcom.hw.aac.encoder=true
-vendor.mm.enable.qcom_parser=46003442
 
 # Netflix
 ro.netflix.bsp_rev=Q670-14477-1
