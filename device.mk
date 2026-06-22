@@ -356,6 +356,7 @@ PRODUCT_PACKAGES += \
     init.qcom.sh
 
 PRODUCT_PACKAGES += \
+    init.qcom.power.rc \
     init.qcom.rc \
     init.recovery.qcom.rc \
     init.target.rc \
