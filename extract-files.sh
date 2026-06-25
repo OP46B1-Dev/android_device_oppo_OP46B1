@@ -72,6 +72,11 @@ function blob_fixup() {
             sed -i "s/qti.sensor.wise_light/android.sensor.light\x00/" "${2}"
             "${SIGSCAN}" -p "F9 69 CA 84 52 49 3F A0 72" -P "F9 A9 00 80 52 09 00 A0 72" -f "${2}" # mov w9, #0x1fa2653 -> mov w9, #5
         ;;
+        odm/lib64/oplus.sensors.ssc.so)
+            [ "$2" = "" ] && return 0
+            sed -i "s/android.sensor.tp_proximity/android.sensor.proximity\x00\x00\x00/" "${2}"
+            "${SIGSCAN}" -p "00 40 26 FA 01 00 00 A0 40" -P "00 08 00 00 00 00 00 A0 40" -f "${2}" # mov w1, #0x1fa2640 -> mov w1, #8
+        ;;
         odm/bin/hw/vendor.oplus.hardware.biometrics.fingerprint@2.1-service | \
         odm/lib/libgf_hal_G2.so | odm/lib64/libgf_hal_G2.so | \
         odm/lib/libgf_hal_G3.so | odm/lib64/libgf_hal_G3.so | \
