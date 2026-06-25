@@ -996,6 +996,7 @@ odm/etc/sensor/config/holi_mmc5603x_0.json
 odm/etc/sensor/config/holi_mxg4300_0.json
 odm/etc/sensor/sensor_config.json
 odm/etc/sensor.cfg
+odm/lib64/oplus.sensors.ssc.so
 vendor/bin/hw/vendor.qti.hardware.sensorscalibrate@1.0-service
 vendor/bin/sensors.qti
 vendor/etc/init/vendor.qti.hardware.sensorscalibrate@1.0-service.rc
