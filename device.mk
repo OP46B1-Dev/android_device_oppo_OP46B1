@@ -89,7 +89,7 @@ PRODUCT_PACKAGES += \
 
 # Camera Helper
 PRODUCT_PACKAGES += \
-    OnePlusCameraHelper \
+    OPlusCameraHelper \
     motor_calib
 
 # Configstore
