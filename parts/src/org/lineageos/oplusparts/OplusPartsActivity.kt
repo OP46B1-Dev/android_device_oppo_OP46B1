@@ -1,21 +1,25 @@
 /*
- * Copyright (C) 2025 The LineageOS Project
+ * Copyright (C) 2026 The LineageOS Project
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package org.lineageos.oplusparts.gesture
+package org.lineageos.oplusparts
 
 import android.os.Bundle
 import com.android.settingslib.collapsingtoolbar.CollapsingToolbarBaseActivity
 
-class ScreenOffGesturesActivity : CollapsingToolbarBaseActivity() {
+/**
+ * Top-level "OPPO features" landing page surfaced in system Settings.
+ * Lists the available feature sub-pages (screen-off features, DC dimming).
+ */
+class OplusPartsActivity : CollapsingToolbarBaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(
                     com.android.settingslib.collapsingtoolbar.R.id.content_frame,
-                    ScreenOffGesturesFragment()
+                    OplusPartsFragment()
                 )
                 .commit()
         }
