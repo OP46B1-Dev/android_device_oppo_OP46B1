@@ -31,11 +31,13 @@
 
     <string-array name="config_deviceKeyHandlerLibs">
         <item>/system_ext/priv-app/OnePlusCameraHelper/OnePlusCameraHelper.apk</item>
+        <item>/system_ext/priv-app/OPlusParts/OPlusParts.apk</item>
     </string-array>
 
     <!-- Names of the key handler classes -->
     <string-array name="config_deviceKeyHandlerClasses">
         <item>org.lineageos.camerahelper.KeyHandler</item>
+        <item>org.lineageos.oplusparts.KeyHandler</item>
     </string-array>
 
 </resources>
