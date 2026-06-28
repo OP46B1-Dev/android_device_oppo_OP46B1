@@ -19,4 +19,8 @@ LOCAL_RESOURCE_DIR := \
 
 LOCAL_PROGUARD_FLAG_FILES := proguard.flags
 
+LOCAL_JNI_SHARED_LIBRARIES := libcamerapropwait
+
 include $(BUILD_PACKAGE)
+
+include $(call all-makefiles-under,$(LOCAL_PATH))

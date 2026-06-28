@@ -14,32 +14,55 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.SystemClock;
+import android.os.SystemProperties;
 import android.util.Log;
 
 public class CameraMotorService extends Service implements Handler.Callback {
     private static final boolean DEBUG = true;
     private static final String TAG = "CameraMotorService";
 
+    static {
+        System.loadLibrary("camerapropwait");
+    }
+
+    private static native void nativeStartPropWatch(Runnable callback);
+
+    private static native void nativeStopPropWatch();
+
     public static final int CAMERA_EVENT_DELAY_TIME = 100; // ms
 
     public static final String FLASHLIGHT_CAMERA_ID = "0";
-    public static final String FRONT_CAMERA_ID = "1";
 
     public static final int MSG_CAMERA_CLOSED = 1000;
     public static final int MSG_CAMERA_OPEN = 1001;
     public static final int MSG_MOTOR_DECISION = 1002;
+    public static final int MSG_HEARTBEAT_WATCHDOG = 1003;
 
     public static final int MOTOR_DECISION_TIMEOUT_MS = 2000; // ms
 
+    public static final int HEARTBEAT_WATCHDOG_INTERVAL_MS = 30000; // ms
+
+    private static final String PROP_FRONT_ON =
+            "vendor.camera_hal_wrapper.front_on";
+    private static final String PROP_REAR_FLASH_ON =
+            "vendor.camera_hal_wrapper.rear_flash_on";
+    private static final String PROP_HEARTBEAT =
+            "vendor.camera_hal_wrapper.heartbeat";
+
     private Handler mHandler = new Handler(this);
+
+    private CameraManager mCameraManager;
 
     private long mClosedEvent;
     private long mOpenEvent;
 
     private boolean mIsFlashlightOn = false;
-    private boolean mIsFontCameraOn = false;
+    private boolean mIsFrontCameraOn = false;
+    private boolean mIsRearFlashOn = false;
 
     private long mMotorDecisionEvent;
+
+    private String mLastHeartbeat = "";
 
     private CameraManager.TorchCallback mTorchCallback =
             new CameraManager.TorchCallback() {
@@ -48,9 +71,11 @@ public class CameraMotorService extends Service implements Handler.Callback {
                     super.onTorchModeChanged(cameraId, enabled);
 
                     if (cameraId.equals(FLASHLIGHT_CAMERA_ID)) {
-                        mIsFlashlightOn = enabled;
-                        if (DEBUG) Log.d(TAG, "Flashlight status: " + enabled);
-                        MotorControl();
+                        mHandler.post(() -> {
+                            mIsFlashlightOn = enabled;
+                            if (DEBUG) Log.d(TAG, "Flashlight status: " + enabled);
+                            MotorControl();
+                        });
                     }
                 }
 
@@ -59,47 +84,54 @@ public class CameraMotorService extends Service implements Handler.Callback {
                     super.onTorchModeUnavailable(cameraId);
 
                     if (cameraId.equals(FLASHLIGHT_CAMERA_ID)) {
-                        mIsFlashlightOn = false;
-                        if (DEBUG) Log.d(TAG, "Flashlight unavailable");
-                        MotorControl();
+                        mHandler.post(() -> {
+                            mIsFlashlightOn = false;
+                            if (DEBUG) Log.d(TAG, "Flashlight unavailable");
+                            MotorControl();
+                        });
                     }
                 }
             };
 
-    private CameraManager.AvailabilityCallback mAvailabilityCallback =
-            new CameraManager.AvailabilityCallback() {
-                @Override
-                public void onCameraAvailable(@NonNull String cameraId) {
-                    super.onCameraAvailable(cameraId);
+    private final Runnable mPropertyChangeCallback = () ->
+            mHandler.post(this::handlePropertyChange);
 
-                    if (cameraId.equals(FRONT_CAMERA_ID)) {
-                        mIsFontCameraOn = false;
-                        if (DEBUG) Log.d(TAG, "Front camera unavailable");
-                        MotorControl();
-                    }
-                }
+    private void handlePropertyChange() {
+        boolean newFront = SystemProperties.getBoolean(PROP_FRONT_ON, false);
+        boolean newRearFlash = SystemProperties.getBoolean(PROP_REAR_FLASH_ON, false);
+        if (newFront != mIsFrontCameraOn || newRearFlash != mIsRearFlashOn) {
+            if (DEBUG) Log.d(TAG, "Wrapper signals: front=" + newFront
+                    + " rear_flash=" + newRearFlash);
+            mIsFrontCameraOn = newFront;
+            mIsRearFlashOn = newRearFlash;
+            MotorControl();
+        }
+    }
 
-                @Override
-                public void onCameraUnavailable(@NonNull String cameraId) {
-                    super.onCameraUnavailable(cameraId);
+    @Override
+    public void onCreate() {
+        mCameraManager = getSystemService(CameraManager.class);
+        mCameraManager.registerTorchCallback(mTorchCallback, null);
 
-                    if (cameraId.equals(FRONT_CAMERA_ID)) {
-                        mIsFontCameraOn = true;
-                        if (DEBUG) Log.d(TAG, "Front camera available");
-                        MotorControl();
-                    }
-                }
-            };
+        nativeStartPropWatch(mPropertyChangeCallback);
+
+        mIsFrontCameraOn = SystemProperties.getBoolean(PROP_FRONT_ON, false);
+        mIsRearFlashOn = SystemProperties.getBoolean(PROP_REAR_FLASH_ON, false);
+
+        mLastHeartbeat = SystemProperties.get(PROP_HEARTBEAT, "");
+        mHandler.sendEmptyMessageDelayed(MSG_HEARTBEAT_WATCHDOG,
+                HEARTBEAT_WATCHDOG_INTERVAL_MS);
+    }
 
     private void MotorControl() {
-        // Reset the motor decision countdown to MOTOR_DECISION_TIMEOUT_MS on every call.
         mMotorDecisionEvent = SystemClock.elapsedRealtime();
         if (mHandler.hasMessages(MSG_MOTOR_DECISION)) {
             mHandler.removeMessages(MSG_MOTOR_DECISION);
         }
         mHandler.sendEmptyMessageDelayed(MSG_MOTOR_DECISION, MOTOR_DECISION_TIMEOUT_MS);
 
-        if (mIsFlashlightOn || mIsFontCameraOn) {
+        boolean anyCameraActive = mIsFlashlightOn || mIsFrontCameraOn || mIsRearFlashOn;
+        if (anyCameraActive) {
             mOpenEvent = SystemClock.elapsedRealtime();
             if (SystemClock.elapsedRealtime() - mClosedEvent < CAMERA_EVENT_DELAY_TIME
                     && mHandler.hasMessages(MSG_CAMERA_CLOSED)) {
@@ -119,13 +151,6 @@ public class CameraMotorService extends Service implements Handler.Callback {
     }
 
     @Override
-    public void onCreate() {
-        CameraManager cameraManager = getSystemService(CameraManager.class);
-        cameraManager.registerAvailabilityCallback(mAvailabilityCallback, null);
-        cameraManager.registerTorchCallback(mTorchCallback, null);
-    }
-
-    @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (DEBUG) Log.d(TAG, "Starting service");
         return START_STICKY;
@@ -134,6 +159,14 @@ public class CameraMotorService extends Service implements Handler.Callback {
     @Override
     public void onDestroy() {
         if (DEBUG) Log.d(TAG, "Destroying service");
+        if (mCameraManager != null) {
+            mCameraManager.unregisterTorchCallback(mTorchCallback);
+        }
+        mHandler.removeMessages(MSG_HEARTBEAT_WATCHDOG);
+        mHandler.removeMessages(MSG_MOTOR_DECISION);
+        mHandler.removeMessages(MSG_CAMERA_OPEN);
+        mHandler.removeMessages(MSG_CAMERA_CLOSED);
+        nativeStopPropWatch();
         super.onDestroy();
     }
 
@@ -148,15 +181,13 @@ public class CameraMotorService extends Service implements Handler.Callback {
             case MSG_MOTOR_DECISION:
                 if (SystemClock.elapsedRealtime() - mMotorDecisionEvent
                         < MOTOR_DECISION_TIMEOUT_MS) {
-                    // Not elapsed yet (a MotorControl() call reset the countdown):
-                    // reschedule for the remaining time.
                     mHandler.sendEmptyMessageDelayed(MSG_MOTOR_DECISION,
                             MOTOR_DECISION_TIMEOUT_MS
                                     - (SystemClock.elapsedRealtime() - mMotorDecisionEvent));
                 } else {
-                    // Countdown elapsed: re-check camera/flashlight status and
-                    // dispatch the camera module raise/retract event.
-                    if (mIsFlashlightOn || mIsFontCameraOn) {
+                    boolean anyCameraActive =
+                            mIsFlashlightOn || mIsFrontCameraOn || mIsRearFlashOn;
+                    if (anyCameraActive) {
                         CameraMotorController.setMotorDirection(
                                 CameraMotorController.DIRECTION_UP);
                     } else {
@@ -174,7 +205,33 @@ public class CameraMotorService extends Service implements Handler.Callback {
                 CameraMotorController.setMotorDirection(CameraMotorController.DIRECTION_UP);
                 CameraMotorController.setMotorEnabled();
                 break;
+            case MSG_HEARTBEAT_WATCHDOG:
+                handleHeartbeatWatchdog();
+                break;
         }
         return true;
+    }
+
+    private void handleHeartbeatWatchdog() {
+        String current = SystemProperties.get(PROP_HEARTBEAT, "");
+        if (!current.isEmpty() && current.equals(mLastHeartbeat)) {
+            Log.w(TAG, "Wrapper heartbeat stale (" + current
+                    + "), resetting camera state");
+            boolean changed = false;
+            if (mIsFrontCameraOn) {
+                mIsFrontCameraOn = false;
+                changed = true;
+            }
+            if (mIsRearFlashOn) {
+                mIsRearFlashOn = false;
+                changed = true;
+            }
+            if (changed) {
+                MotorControl();
+            }
+        }
+        mLastHeartbeat = current;
+        mHandler.sendEmptyMessageDelayed(MSG_HEARTBEAT_WATCHDOG,
+                HEARTBEAT_WATCHDOG_INTERVAL_MS);
     }
 }
