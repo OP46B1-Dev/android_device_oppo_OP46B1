@@ -84,7 +84,7 @@ TARGET_KERNEL_CONFIG := \
     vendor/sdm670-perf_defconfig \
     vendor/debugfs.config \
     vendor/oplus/sdm710-common.config \
-    vendor/oplus/Reno.config
+    vendor/oplus/$(PRODUCT_DEVICE).config
 TARGET_KERNEL_SOURCE := kernel/oppo/sdm710
 
 # Lineage Health
