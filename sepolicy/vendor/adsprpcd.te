@@ -1,0 +1,4 @@
+allow adsprpcd vendor_proc_oplus_version:dir search;
+allow adsprpcd vendor_proc_oplus_version:file r_file_perms;
+allow adsprpcd vendor_sysfs_graphics:dir search;
+allow adsprpcd vendor_sysfs_graphics:file r_file_perms;

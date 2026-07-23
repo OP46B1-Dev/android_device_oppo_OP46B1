@@ -1,0 +1,10 @@
+allow rild vendor_proc_display:file r_file_perms;
+allow rild mnt_vendor_file:dir search;
+allow rild block_device:dir search;
+
+set_prop(rild, oppo_debug_prop)
+
+dontaudit rild default_prop:file { read open getattr };
+
+dontaudit rild cache_file:dir { create search getattr write add_name };
+dontaudit rild cache_file:file { create write open };

@@ -1,0 +1,33 @@
+# Camera
+/(vendor|system/vendor)/bin/hw/android\.hardware\.camera\.provider@2.4-service_64\.OP46B1    u:object_r:hal_camera_default_exec:s0
+/mnt/vendor/persist/camera(/.*)?    u:object_r:vendor_persist_camera_file:s0
+
+# Fingerprint
+/(odm|vendor/odm)/bin/hw/vendor\.oplus\.hardware\.biometrics\.fingerprint@2\.1-service       u:object_r:hal_fingerprint_default_exec:s0
+/(odm|vendor/odm)/bin/hw/android\.hardware\.biometrics\.fingerprint@2\.3-service\.OP46B1     u:object_r:hal_fingerprint_default_exec:s0
+/dev/fingerprint_dev                                                                         u:object_r:fingerprint_device:s0
+/dev/goodix_fp                                                                               u:object_r:fingerprint_device:s0
+/dev/jiiov_fp                                                                                u:object_r:fingerprint_device:s0
+/dev/silead_fp                                                                               u:object_r:fingerprint_device:s0
+
+# Init
+/(vendor|system/vendor)/bin/init\.qti\.qcv\.sh                                                u:object_r:qti_init_shell_exec:s0
+
+# Motor
+/(vendor|system/vendor)/bin/motor_calib                                                       u:object_r:motor_calib_exec:s0
+
+# NFC
+/dev/pn553    u:object_r:nfc_device:s0
+
+# RMT
+/dev/mdmreason    u:object_r:mdmreason_device:s0
+/sys/devices(/platform)?/soc/[a-f0-9]+\.qcom,oembackup_sharedmem/uio/uio[0-9]+(/.*)?          u:object_r:sysfs_uio_file:s0
+/dev/block/platform/soc/1d84000\.ufshc/by-name/oppodycnvbk                                    u:object_r:modem_efs_partition_device:s0
+/dev/block/platform/soc/1d84000\.ufshc/by-name/oppostanvbk                                    u:object_r:modem_efs_partition_device:s0
+/dev/block/platform/soc/1d84000\.ufshc/by-name/oppo_sec                                       u:object_r:modem_efs_partition_device:s0
+
+# Reserve
+/dev/block/platform/soc/1d84000\.ufshc/by-name/opporeserve[1-5]                               u:object_r:vendor_reserve_partition:s0
+
+# Widevine
+/(odm|vendor/odm)/bin/hw/android\.hardware\.drm@1\.[0-4]-service\.widevine                    u:object_r:hal_drm_widevine_exec:s0

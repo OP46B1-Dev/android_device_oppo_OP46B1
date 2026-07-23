@@ -51,6 +51,7 @@ ro.hwui.texture_cache_size=72
 
 # Media
 ro.media.recorder-max-base-layer-fps=60
+media.settings.xml=/vendor/etc/media_profiles_vendor.xml
 
 # QVA
 ro.vendor.qti.va_aosp.support=1

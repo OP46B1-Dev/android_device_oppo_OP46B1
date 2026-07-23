@@ -1,0 +1,3 @@
+user=system seinfo=platform name=org.lineageos.camerahelper domain=camera_helper_app type=system_app_data_file
+user=system seinfo=platform name=org.lineageos.oplusparts domain=oplus_parts_app type=system_app_data_file
+user=system seinfo=platform name=org.lineageos.proximityservice domain=proximity_service_app type=system_app_data_file

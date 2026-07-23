@@ -1,0 +1,2 @@
+allow vold mnt_vendor_file:dir { r_dir_perms ioctl };
+allow vold sysfs_mmc_host:file w_file_perms;

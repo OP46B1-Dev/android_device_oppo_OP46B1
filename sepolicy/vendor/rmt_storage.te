@@ -1,0 +1,17 @@
+allow rmt_storage mdmreason_device:chr_file rw_file_perms;
+
+allow rmt_storage vendor_proc_oplus_version:dir search;
+allow rmt_storage vendor_proc_oplus_version:file { open read write };
+
+allow rmt_storage proc:file { read open };
+
+allow rmt_storage self:capability sys_admin;
+dontaudit rmt_storage self:capability { dac_override dac_read_search };
+
+allow rmt_storage sysfs_socinfo_sensitive:file r_file_perms;
+
+allow rmt_storage vendor_reserve_partition:blk_file rw_file_perms;
+
+get_prop(rmt_storage, oppo_debug_prop);
+
+dontaudit rmt_storage { system_prop default_prop }:file { read open getattr };

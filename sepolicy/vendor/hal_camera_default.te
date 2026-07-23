@@ -1,0 +1,23 @@
+hwbinder_use(hal_camera_default)
+add_hwservice(hal_camera_default, hal_camera_hwservice)
+
+binder_call(hal_camera_default, cameraserver)
+
+allow hal_camera_default vendor_proc_oplus_version:dir search;
+allow hal_camera_default vendor_proc_oplus_version:file r_file_perms;
+
+allow hal_camera_default vendor_persist_camera_file:dir create_dir_perms;
+allow hal_camera_default vendor_persist_camera_file:file create_file_perms;
+
+allow hal_camera_default vendor_file:file execute;
+allow hal_camera_default same_process_hal_file:file execute;
+
+allow hal_camera_default self:capability sys_nice;
+
+set_prop(hal_camera_default, vendor_camera_prop)
+
+allow hal_camera_default proc:file rw_file_perms;
+
+hal_client_domain(hal_camera_default, hal_graphics_allocator)
+
+dontaudit hal_camera_default property_type:file { open getattr read map };

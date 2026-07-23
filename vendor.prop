@@ -160,7 +160,6 @@ ro.hardware.keystore_desede=true
 # Media
 debug.stagefright.ccodec=1
 media.aac_51_output_enabled=true
-media.settings.xml=/vendor/etc/media_profiles_vendor.xml
 media.stagefright.audio.deep=false
 media.stagefright.enable-aac=true
 media.stagefright.enable-fma2dp=true

@@ -1,0 +1,3 @@
+allow qti_init_shell proc_page_cluster:file w_file_perms;
+
+set_prop(qti_init_shell, oppo_debug_prop)

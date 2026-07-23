@@ -1,0 +1,2 @@
+allow fsck sysfs:file getattr;
+dontaudit fsck self:capability { kill dac_override dac_read_search };

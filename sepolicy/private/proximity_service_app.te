@@ -1,0 +1,14 @@
+type proximity_service_app, domain;
+
+app_domain(proximity_service_app)
+
+allow proximity_service_app activity_service:service_manager find;
+
+dontaudit proximity_service_app system_data_file:dir search;
+dontaudit proximity_service_app netstats_service:service_manager find;
+dontaudit proximity_service_app content_capture_service:service_manager find;
+dontaudit proximity_service_app sensorservice_service:service_manager find;
+allow proximity_service_app vendor_proc_display:dir search;
+allow proximity_service_app vendor_proc_display:file rw_file_perms;
+
+allow system_app vendor_proc_display:file { read open getattr };

@@ -1,0 +1,5 @@
+# Debugging
+vendor_internal_prop(oppo_debug_prop)
+
+# Fingerprint
+vendor_internal_prop(vendor_fingerprint_prop)
