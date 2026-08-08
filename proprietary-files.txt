@@ -441,7 +441,7 @@ vendor/etc/init/vendor.qti.hardware.capabilityconfigstore@1.0-service.rc
 vendor/lib64/hw/vendor.qti.hardware.capabilityconfigstore@1.0-impl.so
 
 # DPM
-framework/tcmclient.jar
+system/framework/tcmclient.jar
 system_ext/bin/dpmd
 system_ext/etc/dpm/dpm.conf
 system_ext/etc/init/dpmd.rc
@@ -465,7 +465,6 @@ vendor/bin/hw/vendor.qti.hardware.qseecom@1.0-service
 vendor/bin/qseecomd
 vendor/etc/init/qseecomd.rc
 vendor/etc/init/vendor.qti.hardware.qseecom@1.0-service.rc
-vendor/lib/libcppf.so
 vendor/lib64/hw/vendor.qti.hardware.qseecom@1.0-impl.so
 vendor/lib64/libGPreqcancel.so
 vendor/lib64/libGPreqcancel_svc.so
@@ -556,15 +555,6 @@ vendor/lib64/vendor.qti.hardware.fm@1.0.so|17e86e9a2054db733d955fcf1066f6e06a44f
 
 # Fingerprint
 odm/bin/hw/vendor.oplus.hardware.biometrics.fingerprint@2.1-service
-odm/lib/hw/fingerprint.goodix_G2.default.so
-odm/lib/hw/fingerprint.goodix_G3.default.so
-odm/lib/hw/fingerprint.goodix_G5.default.so
-odm/lib/hw/fingerprint.goodix_G6.default.so
-odm/lib/libgf_hal_G2.so
-odm/lib/libgf_hal_G3.so
-odm/lib/libgf_hal_G5.so
-odm/lib/libgf_hal_G6.so
-odm/lib/vendor.oplus.hardware.biometrics.fingerprintservice@1.0.so
 odm/lib64/hw/fingerprint.goodix_G2.default.so
 odm/lib64/hw/fingerprint.goodix_G3.default.so
 odm/lib64/hw/fingerprint.goodix_G5.default.so
@@ -575,9 +565,6 @@ odm/lib64/libgf_hal_G5.so
 odm/lib64/libgf_hal_G6.so
 odm/lib64/vendor.oplus.hardware.biometrics.fingerprintservice@1.0.so
 vendor/bin/qfp-daemon
-vendor/lib/libarm_proxy_skel.so
-vendor/lib/libhvx_proxy_stub.so
-vendor/lib/vendor.oplus.hardware.commondcs@1.0.so
 vendor/lib64/libarm_proxy_skel.so
 vendor/lib64/libhvx_proxy_stub.so
 vendor/lib64/libqfp-service.so
@@ -836,7 +823,6 @@ vendor/lib/libqmi_client_qmux.so
 vendor/lib/libqmi_common_so.so
 vendor/lib/libqmi_csi.so
 vendor/lib/libqmi_encdec.so
-vendor/lib/libqmiservices.so
 vendor/lib64/libdiag.so
 vendor/lib64/libdsi_netctrl.so
 vendor/lib64/libdsutils.so
@@ -1061,7 +1047,7 @@ vendor/etc/sensors/sns_reg_config
 # Thermal engine
 vendor/bin/thermal-engine
 vendor/etc/init/init_thermal-engine.rc
--vendor/lib64/libthermalclient.so
+vendor/lib64/libthermalclient.so
 
 # Thermal config
 vendor/etc/thermal-engine.conf
@@ -1102,7 +1088,7 @@ vendor/etc/wifi/aoa_cldb_falcon.bin
 vendor/etc/wifi/aoa_cldb_swl14.bin
 
 # WiFi Display
-framework/WfdCommon.jar
+system/framework/WfdCommon.jar
 system_ext/bin/wfdservice
 system_ext/etc/init/wfdservice.rc
 system_ext/etc/permissions/wfd-system-ext-privapp-permissions-qti.xml
