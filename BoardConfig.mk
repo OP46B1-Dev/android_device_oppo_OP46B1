@@ -85,9 +85,6 @@ TARGET_KERNEL_CONFIG := \
     vendor/oplus/$(PRODUCT_DEVICE).config
 TARGET_KERNEL_SOURCE := kernel/oppo/sdm710
 
-# Lineage Health
-TARGET_HEALTH_CHARGING_CONTROL_SUPPORTS_BYPASS := false
-
 # Media
 TARGET_USES_ION := true
 
