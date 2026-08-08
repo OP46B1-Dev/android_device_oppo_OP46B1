@@ -63,6 +63,11 @@ lib_fixups: lib_fixups_user_type = {
 }
 
 blob_fixups: blob_fixups_user_type = {
+    (
+        'odm/lib64/mediadrm/libwvdrmengine.so',
+        'odm/lib64/libwvhidl.so'
+    ): blob_fixup()
+        .add_needed('libcrypto_shim.so'),
     'odm/lib64/oplus.sensors.ssc.so': blob_fixup()
         .binary_regex_replace(
             b'android.sensor.tp_proximity',
