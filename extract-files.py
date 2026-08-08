@@ -97,6 +97,8 @@ blob_fixups: blob_fixups_user_type = {
         .add_needed('libgui_shim.so'),
     'vendor/lib64/hw/camera.qcom.so': blob_fixup()
         .add_needed('liboplus_camera_shim.so'),
+    'vendor/lib64/libarcsoft_super_night_raw.so': blob_fixup()
+        .clear_symbol_version('remote_register_buf'),
     'vendor/lib64/libhvx_proxy_stub.so': blob_fixup()
         .clear_symbol_version('remote_handle64_close')
         .clear_symbol_version('remote_handle64_invoke')
