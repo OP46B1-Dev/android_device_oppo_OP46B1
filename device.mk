@@ -259,7 +259,8 @@ PRODUCT_PACKAGES += \
     SettingsOverlayOP46B1 \
     SettingsProviderOverlayOP46B1 \
     SystemUIOverlayOP46B1 \
-    TelephonyResOverlayOP46B1
+    TelephonyResOverlayOP46B1 \
+    WifiOverlayOP46B1
 
 # Permissions
 PRODUCT_COPY_FILES += \

@@ -1,0 +1,6 @@
+runtime_resource_overlay {
+    name: "WifiOverlayOP46B1",
+    theme: "WifiOverlayOP46B1",
+    sdk_version: "current",
+    device_specific: true
+}
