@@ -253,16 +253,6 @@ vendor/lib64/libvidhance.so
 vendor/lib64/qcom.camera.log.so
 
 # Camera (arcsoft modules)
-vendor/lib/libarcsoft_dualcam_portrait_shot.so
-vendor/lib/libarcsoft_hdr_couple_api.so
-vendor/lib/libarcsoft_hdr_denoise_api.so
-vendor/lib/libarcsoft_high_dynamic_range.so
-vendor/lib/libarcsoft_high_dynamic_range_couple.so
-vendor/lib/libarcsoft_lensstaindetection.so
-vendor/lib/libarcsoft_low_light_hdr.so
-vendor/lib/libarcsoft_picauto.so
-vendor/lib/libarcsoft_relighting_pro_image.so
-vendor/lib/libarcsoft_smart_denoise.so
 vendor/lib64/libarcsoft_beautyshot.so
 vendor/lib64/libarcsoft_dualcam_bokeh_api.so
 vendor/lib64/libarcsoft_dualcam_refocus_left.so
