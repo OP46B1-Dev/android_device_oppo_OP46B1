@@ -796,21 +796,6 @@ vendor/lib64/unnhal-acc-adreno.so
 vendor/lib64/unnhal-acc-common.so
 vendor/lib64/unnhal-acc-hvx.so
 
-# OMX
-vendor/lib/libOmxDsdDec.so
-vendor/lib/libOmxVideoDSMode.so
-vendor/lib/libdsd2pcm.so
-vendor/lib64/libOmxAacDec.so
-vendor/lib64/libOmxAlacDec.so
-vendor/lib64/libOmxAmrDec.so
-vendor/lib64/libOmxAmrwbplusDec.so
-vendor/lib64/libOmxApeDec.so
-vendor/lib64/libOmxEvrcDec.so
-vendor/lib64/libOmxG711Dec.so
-vendor/lib64/libOmxQcelp13Dec.so
-vendor/lib64/libOmxVpp.so
-vendor/lib64/libOmxWmaDec.so
-
 # Peripheral manager
 vendor/bin/pm-proxy
 vendor/bin/pm-service
