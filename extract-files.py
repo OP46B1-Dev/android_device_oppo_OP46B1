@@ -97,6 +97,8 @@ blob_fixups: blob_fixups_user_type = {
         .add_needed('libgui_shim.so'),
     'vendor/lib64/hw/camera.qcom.so': blob_fixup()
         .add_needed('liboplus_camera_shim.so'),
+    'vendor/lib64/libvidhance.so': blob_fixup()
+        .add_needed('libcomparetf2_shim.so'),
     'vendor/lib64/sensors.ssc.so': blob_fixup()
         .binary_regex_replace(
             b'qti.sensor.wise_light',
