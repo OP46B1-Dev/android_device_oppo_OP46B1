@@ -218,7 +218,6 @@ PRODUCT_PACKAGES += \
     android.hardware.nfc@1.2-service \
     com.android.nfc_extras \
     libchrome.vendor \
-    NfcNci \
     Tag
 
 PRODUCT_COPY_FILES += \
@@ -369,10 +368,6 @@ PRODUCT_PACKAGES += \
     init.recovery.qcom.rc \
     init.target.rc \
     ueventd.qcom.rc
-
-# Secure element
-PRODUCT_PACKAGES += \
-    SecureElement
 
 # Sensors
 PRODUCT_PACKAGES += \
