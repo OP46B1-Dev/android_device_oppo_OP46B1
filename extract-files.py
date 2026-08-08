@@ -97,6 +97,12 @@ blob_fixups: blob_fixups_user_type = {
         .add_needed('libgui_shim.so'),
     'vendor/lib64/hw/camera.qcom.so': blob_fixup()
         .add_needed('liboplus_camera_shim.so'),
+    'vendor/lib64/libhvx_proxy_stub.so': blob_fixup()
+        .clear_symbol_version('remote_handle64_close')
+        .clear_symbol_version('remote_handle64_invoke')
+        .clear_symbol_version('remote_handle64_open')
+        .clear_symbol_version('remote_register_dma_handle')
+        .clear_symbol_version('remote_register_dma_handle_attr'),
     'vendor/lib64/libvidhance.so': blob_fixup()
         .add_needed('libcomparetf2_shim.so'),
     'vendor/lib64/sensors.ssc.so': blob_fixup()
