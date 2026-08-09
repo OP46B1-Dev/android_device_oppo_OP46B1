@@ -95,6 +95,8 @@ blob_fixups: blob_fixups_user_type = {
         ),
     'system_ext/lib64/lib-imsvideocodec.so': blob_fixup()
         .add_needed('libgui_shim.so'),
+    'vendor/etc/seccomp_policy/atfwd@2.0.policy': blob_fixup()
+        .add_line_if_missing('gettid: 1'),
     'vendor/lib64/hw/camera.qcom.so': blob_fixup()
         .add_needed('liboplus_camera_shim.so'),
     'vendor/lib64/libarcsoft_super_night_raw.so': blob_fixup()
