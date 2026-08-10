@@ -10,6 +10,9 @@
 /dev/jiiov_fp                                                                                u:object_r:fingerprint_device:s0
 /dev/silead_fp                                                                               u:object_r:fingerprint_device:s0
 
+# LiveDisplay
+/(vendor|system/vendor)/bin/hw/vendor\.lineage\.livedisplay@2\.1-service\.OP46B1             u:object_r:hal_lineage_livedisplay_qti_exec:s0
+
 # Init
 /(vendor|system/vendor)/bin/init\.qti\.qcv\.sh                                                u:object_r:qti_init_shell_exec:s0
 

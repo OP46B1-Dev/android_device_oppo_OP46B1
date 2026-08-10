@@ -1,0 +1,3 @@
+# DC dimming (anti-flicker) sysfs node
+allow hal_lineage_livedisplay_qti vendor_sysfs_graphics:dir search;
+allow hal_lineage_livedisplay_qti vendor_sysfs_graphics:file rw_file_perms;
