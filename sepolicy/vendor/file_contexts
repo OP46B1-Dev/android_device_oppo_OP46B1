@@ -13,6 +13,9 @@
 # LiveDisplay
 /(vendor|system/vendor)/bin/hw/vendor\.lineage\.livedisplay@2\.1-service\.OP46B1             u:object_r:hal_lineage_livedisplay_qti_exec:s0
 
+# Touch
+/(vendor|system/vendor)/bin/hw/vendor\.lineage\.touch@1\.0-service\.OP46B1                   u:object_r:hal_lineage_touch_default_exec:s0
+
 # Init
 /(vendor|system/vendor)/bin/init\.qti\.qcv\.sh                                                u:object_r:qti_init_shell_exec:s0
 
