@@ -1,5 +1,5 @@
 // OPlusParts - Device-specific parts for OP46B1
-// First feature: screen-off gestures via DeviceKeyHandler
+// First feature: DC dimming
 //
 // SPDX-License-Identifier: Apache-2.0
 
