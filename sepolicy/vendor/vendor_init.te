@@ -5,6 +5,10 @@ set_prop(vendor_init, vendor_camera_prop)
 
 get_prop(vendor_init, persist_debug_prop)
 
+recovery_only(`
+  allow vendor_init rootfs:dir read;
+')
+
 allow vendor_init block_device:lnk_file setattr;
 
 typeattribute vendor_init data_between_core_and_vendor_violators;

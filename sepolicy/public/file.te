@@ -8,5 +8,8 @@ type sysfs_touchpanel, sysfs_type, fs_type;
 # Motor
 type sysfs_motor, sysfs_type, fs_type;
 
+# USB
+type vendor_sysfs_usb_mode, sysfs_type, fs_type;
+
 # Versioning
 type vendor_proc_oplus_version, fs_type, proc_type;

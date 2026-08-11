@@ -1,0 +1,8 @@
+recovery_only(`
+  allow recovery pstorefs:dir search;
+  allow recovery sysfs_graphics:dir search;
+  allow recovery self:capability kill;
+
+  set_prop(recovery, boottime_prop);
+  set_prop(recovery, recovery_prop);
+')

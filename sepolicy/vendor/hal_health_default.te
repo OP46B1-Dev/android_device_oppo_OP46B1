@@ -1,0 +1,3 @@
+recovery_only(`
+  allow hal_health_default sysfs_usb_supply:file r_file_perms;
+')
