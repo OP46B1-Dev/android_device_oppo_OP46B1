@@ -50,4 +50,12 @@
             <instance>oplus_slot2</instance>
         </interface>
     </hal>
+    <hal format="aidl" optional="false">
+        <name>vendor.oplus.hardware.motor</name>
+        <version>1</version>
+        <interface>
+            <name>IMotor</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
 </compatibility-matrix>

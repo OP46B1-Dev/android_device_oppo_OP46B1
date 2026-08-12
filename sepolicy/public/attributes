@@ -1,0 +1,2 @@
+hal_attribute(oplus_camera_signal)
+hal_attribute(oplus_motor)

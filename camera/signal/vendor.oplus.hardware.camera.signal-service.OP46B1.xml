@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2026 The LineageOS Project
+     SPDX-License-Identifier: Apache-2.0
+-->
+<manifest version="1.0" type="framework">
+    <hal format="hidl">
+        <name>vendor.oplus.hardware.camera.signal</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>ICameraSignal</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+</manifest>

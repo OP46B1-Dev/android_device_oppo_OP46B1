@@ -1,0 +1,12 @@
+hidl_interface {
+    name: "vendor.oplus.hardware.camera.signal@1.0",
+    root: "vendor.oplus.hardware.camera.signal",
+    srcs: [
+        "types.hal",
+        "ICameraSignal.hal",
+        "ICameraSignalListener.hal",
+    ],
+    interfaces: ["android.hidl.base@1.0"],
+    gen_java: true,
+    system_ext_specific: true,
+}

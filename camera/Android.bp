@@ -1,0 +1,135 @@
+//
+// Copyright (C) 2026 The LineageOS Project
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+
+aidl_interface {
+    name: "vendor.oplus.hardware.motor",
+    owner: "lineage",
+    vendor_available: true,
+    local_include_dir: "aidl",
+    srcs: [
+        "aidl/vendor/oplus/hardware/motor/*.aidl",
+    ],
+    stability: "vintf",
+    backend: {
+        cpp: {
+            enabled: false,
+        },
+        java: {
+            enabled: true,
+            sdk_version: "system_current",
+        },
+        ndk: {
+            enabled: true,
+        },
+    },
+    versions_with_info: [
+        {
+            version: "1",
+            imports: [],
+        },
+    ],
+    frozen: true,
+}
+
+cc_library_shared {
+    name: "liboplus_camera_shim",
+    srcs: [
+        "shim/CameraShim.cpp",
+        "shim/SignalDispatcher.cpp",
+    ],
+    local_include_dirs: ["shim"],
+    shared_libs: [
+        "libcamera_metadata",
+        "libdl",
+        "libhardware",
+        "libhidlbase",
+        "liblog",
+        "libutils",
+        "vendor.oplus.hardware.camera.signal@1.0",
+    ],
+    cflags: [
+        "-Wall",
+        "-Werror",
+        "-Wextra",
+        "-Wthread-safety",
+    ],
+    compile_multilib: "both",
+    vendor: true,
+}
+
+cc_binary {
+    name: "vendor.oplus.hardware.camera.signal-service.OP46B1",
+    srcs: [
+        "signal/CameraSignalService.cpp",
+        "signal/service.cpp",
+    ],
+    local_include_dirs: ["signal"],
+    init_rc: ["signal/vendor.oplus.hardware.camera.signal-service.OP46B1.rc"],
+    vintf_fragments: ["signal/vendor.oplus.hardware.camera.signal-service.OP46B1.xml"],
+    relative_install_path: "hw",
+    defaults: ["hidl_defaults"],
+    shared_libs: [
+        "libbase",
+        "libhidlbase",
+        "liblog",
+        "libutils",
+        "vendor.oplus.hardware.camera.signal@1.0",
+    ],
+    header_libs: ["libcutils_headers"],
+    cflags: [
+        "-Wall",
+        "-Werror",
+        "-Wextra",
+    ],
+    system_ext_specific: true,
+}
+
+cc_binary {
+    name: "vendor.oplus.hardware.motor-service.OP46B1",
+    srcs: [
+        "motor/Motor.cpp",
+        "motor/service.cpp",
+    ],
+    local_include_dirs: ["motor"],
+    init_rc: ["motor/vendor.oplus.hardware.motor-service.OP46B1.rc"],
+    vintf_fragments: ["motor/vendor.oplus.hardware.motor-service.OP46B1.xml"],
+    relative_install_path: "hw",
+    shared_libs: [
+        "libbase",
+        "libbinder",
+        "libbinder_ndk",
+        "liblog",
+        "libutils",
+    ],
+    static_libs: [
+        "vendor.oplus.hardware.motor-V1-ndk",
+    ],
+    cflags: [
+        "-Wall",
+        "-Werror",
+        "-Wextra",
+        "-Wthread-safety",
+    ],
+    vendor: true,
+}
+
+android_app {
+    name: "OPlusCameraHelper",
+    srcs: ["helper/src/**/*.kt"],
+    static_libs: [
+        "vendor.oplus.hardware.camera.signal-V1.0-java",
+        "vendor.oplus.hardware.motor-V1-java",
+    ],
+    manifest: "helper/AndroidManifest.xml",
+    resource_dirs: ["helper/res"],
+    platform_apis: true,
+    certificate: "platform",
+    privileged: true,
+    system_ext_specific: true,
+    optimize: {
+        proguard_flags_files: ["helper/proguard.flags"],
+    },
+}

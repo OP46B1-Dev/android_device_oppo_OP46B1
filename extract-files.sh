@@ -63,6 +63,12 @@ fi
 
 function blob_fixup() {
     case "${1}" in
+        vendor/lib/hw/camera.qcom.so | vendor/lib64/hw/camera.qcom.so)
+            [ "$2" = "" ] && return 0
+            if ! "${PATCHELF}" --print-needed "${2}" | grep -qx liboplus_camera_shim.so; then
+                "${PATCHELF}" --add-needed liboplus_camera_shim.so "${2}"
+            fi
+        ;;
         system_ext/lib64/lib-imsvideocodec.so)
             [ "$2" = "" ] && return 0
             "${PATCHELF}" --add-needed libgui_shim.so "${2}"

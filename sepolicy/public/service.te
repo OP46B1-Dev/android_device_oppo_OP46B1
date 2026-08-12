@@ -1,0 +1,2 @@
+type hal_oplus_camera_signal_hwservice, hwservice_manager_type, protected_hwservice;
+type hal_oplus_motor_service, hal_service_type, protected_service, service_manager_type;

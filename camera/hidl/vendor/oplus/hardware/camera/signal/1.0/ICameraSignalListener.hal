@@ -1,0 +1,13 @@
+/*
+ * Copyright (C) 2026 The LineageOS Project
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+package vendor.oplus.hardware.camera.signal@1.0;
+
+interface ICameraSignalListener {
+    oneway onCameraStateChanged(int32_t cameraId, CameraState state, int64_t sessionId,
+                                int64_t sequence, int32_t configurationId);
+    oneway onMotorEvent(int32_t scanCode, int64_t eventTimeNanos);
+};

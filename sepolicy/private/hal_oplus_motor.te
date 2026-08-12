@@ -1,0 +1,2 @@
+binder_call(hal_oplus_motor_client, hal_oplus_motor_server)
+hal_attribute_service(hal_oplus_motor, hal_oplus_motor_service)

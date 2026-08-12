@@ -1,0 +1,15 @@
+/*
+ * Copyright (C) 2026 The LineageOS Project
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+package vendor.oplus.hardware.camera.signal@1.0;
+
+enum CameraState : int32_t {
+    IDLE = 0,
+    FRONT_CAMERA = 1,
+    REAR_AUTO_FLASH = 2,
+    REAR_ALWAYS_FLASH = 3,
+    REAR_VIDEO = 4,
+};

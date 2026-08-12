@@ -77,7 +77,11 @@ PRODUCT_PACKAGES += \
 # Camera
 PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl \
-    android.hardware.camera.provider@2.4-service_64.OP46B1
+    android.hardware.camera.provider@2.4-service_64 \
+    liboplus_camera_shim \
+    vendor.oplus.hardware.camera.signal-service.OP46B1 \
+    vendor.oplus.hardware.motor-service.OP46B1 \
+    OPlusCameraHelper
 
 PRODUCT_PACKAGES += \
     libcamera2ndk_vendor \
@@ -86,11 +90,6 @@ PRODUCT_PACKAGES += \
     libstdc++_vendor \
     vendor.qti.hardware.camera.device@1.0.vendor \
     vendor.qti.hardware.camera.postproc@1.0.vendor
-
-# Camera Helper
-PRODUCT_PACKAGES += \
-    OPlusCameraHelper \
-    motor_calib
 
 # Configstore
 PRODUCT_PACKAGES += \

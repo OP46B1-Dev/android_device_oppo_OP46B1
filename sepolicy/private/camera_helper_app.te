@@ -1,14 +1,16 @@
-type camera_helper_app, domain;
+typeattribute camera_helper_app coredomain;
+typeattribute camera_helper_app mlstrustedsubject;
 
 app_domain(camera_helper_app)
 
 allow camera_helper_app app_api_service:service_manager find;
 allow camera_helper_app cameraserver_service:service_manager find;
+allow camera_helper_app window_service:service_manager find;
+
+hal_client_domain(camera_helper_app, hal_oplus_camera_signal)
+hal_client_domain(camera_helper_app, hal_oplus_motor)
+
+allow camera_helper_app system_app_data_file:dir create_dir_perms;
+allow camera_helper_app system_app_data_file:{ file lnk_file } create_file_perms;
 
 dontaudit camera_helper_app system_data_file:dir search;
-
-dontaudit camera_helper_app default_prop:file { read open getattr };
-
-get_prop(camera_helper_app, vendor_camera_prop)
-
-rw_dir_file(camera_helper_app, sysfs_motor)

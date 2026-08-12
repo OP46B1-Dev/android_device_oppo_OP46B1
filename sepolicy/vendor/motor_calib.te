@@ -1,9 +1,0 @@
-type motor_calib, domain;
-type motor_calib_exec, exec_type, vendor_file_type, file_type;
-init_daemon_domain(motor_calib)
-
-allow motor_calib sysfs_motor:dir search;
-allow motor_calib sysfs_motor:file rw_file_perms;
-allow motor_calib block_device:dir search;
-
-allow motor_calib vendor_reserve_partition:blk_file r_file_perms;

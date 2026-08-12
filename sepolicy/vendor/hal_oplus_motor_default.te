@@ -1,0 +1,14 @@
+type hal_oplus_motor_default, domain;
+type hal_oplus_motor_default_exec, exec_type, vendor_file_type, file_type;
+
+binder_use(hal_oplus_motor_default)
+init_daemon_domain(hal_oplus_motor_default)
+hal_server_domain(hal_oplus_motor_default, hal_oplus_motor)
+
+allow hal_oplus_motor_default sysfs_motor:dir search;
+allow hal_oplus_motor_default sysfs_motor:file rw_file_perms;
+# The motor nodes live below /sys/class/motor; traverse the generic parent.
+allow hal_oplus_motor_default sysfs:dir search;
+
+allow hal_oplus_motor_default block_device:dir search;
+allow hal_oplus_motor_default vendor_reserve_partition:blk_file r_file_perms;

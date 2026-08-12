@@ -1,0 +1,9 @@
+type hal_oplus_camera_signal_default, domain, coredomain;
+type hal_oplus_camera_signal_default_exec, exec_type, system_file_type, file_type;
+
+init_daemon_domain(hal_oplus_camera_signal_default)
+hal_server_domain(hal_oplus_camera_signal_default, hal_oplus_camera_signal)
+
+binder_call(hal_oplus_camera_signal_client, hal_oplus_camera_signal_server)
+binder_call(hal_oplus_camera_signal_server, hal_oplus_camera_signal_client)
+hal_attribute_hwservice(hal_oplus_camera_signal, hal_oplus_camera_signal_hwservice)

@@ -1,6 +1,7 @@
 allow system_server vendor_proc_display:dir search;
 allow system_server vendor_proc_display:file rw_file_perms;
 
-rw_dir_file(system_server, sysfs_motor)
-
 dontaudit system_server debugfs_wakeup_sources:file { read open getattr };
+
+# DeviceKeyHandler forwards motor input events through the signal broker.
+hal_client_domain(system_server, hal_oplus_camera_signal)

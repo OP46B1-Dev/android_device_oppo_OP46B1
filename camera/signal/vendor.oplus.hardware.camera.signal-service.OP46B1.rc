@@ -1,0 +1,11 @@
+#
+# Copyright (C) 2026 The LineageOS Project
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+service vendor.oplus.camera-signal /system_ext/bin/hw/vendor.oplus.hardware.camera.signal-service.OP46B1
+    interface vendor.oplus.hardware.camera.signal@1.0::ICameraSignal default
+    class hal
+    user system
+    group system camera
