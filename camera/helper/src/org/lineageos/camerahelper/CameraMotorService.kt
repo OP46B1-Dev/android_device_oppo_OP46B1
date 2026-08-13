@@ -56,6 +56,7 @@ class CameraMotorService : Service() {
     private val suppressedAbnormalUntilMillis = mutableMapOf<Int, Long>()
     private val staleMoveEventGuards = mutableMapOf<Int, StaleMoveEventGuard>()
     private var downPending = false
+    private var postMoveDelayPending = false
     private var restartAfterDown = false
     private var safetyReason = SafetyReason.NONE
     private var safetyLatchedAtMillis = 0L
@@ -133,6 +134,7 @@ class CameraMotorService : Service() {
                 settledDirection = DIRECTION_UNKNOWN
                 faultDirection = DIRECTION_UNKNOWN
                 clearRestartRequest()
+                cancelPostMoveDelay()
                 suppressedAbnormalUntilMillis.clear()
                 staleMoveEventGuards.clear()
                 scheduleReconnect()
@@ -174,6 +176,53 @@ class CameraMotorService : Service() {
         downPending = false
         if (!hasRaiseDemand() && safetyReason == SafetyReason.NONE) {
             requestMove(IMotor.DIRECTION_DOWN, IMotor.START_NORMAL)
+        }
+    }
+
+    /**
+     * Watches an in-progress move (up or down) so a lost completion event
+     * cannot leave the coordinator stuck. Once the hardware reports the motor
+     * stopped at an endpoint, the cached state is re-synchronized from the
+     * hardware and the final state is re-evaluated. No extra motor command is
+     * issued here.
+     */
+    private val moveWatchdogRunnable = object : Runnable {
+        override fun run() {
+            if (destroyed) return
+            if (!moveInFlight()) return
+
+            val state = readHardwareMotorState() ?: return
+            if (state.movingDirection != DIRECTION_UNKNOWN) {
+                applyHardwareMotorState(state)
+                stateHandler.postDelayed(this, MOVE_WATCHDOG_INTERVAL_MILLIS)
+                return
+            }
+
+            applyHardwareMotorState(state)
+            if (state.positionDirection == IMotor.DIRECTION_UP ||
+                state.positionDirection == IMotor.DIRECTION_DOWN
+            ) {
+                // Hardware settled at an endpoint: reset the coordinator to
+                // the hardware truth before re-deciding.
+                commandedDirection = state.positionDirection
+                if (faultDirection == state.positionDirection) {
+                    faultDirection = DIRECTION_UNKNOWN
+                }
+                schedulePostMoveDelay()
+            }
+            // Stopped at MID/unknown: abnormal motor events own this case.
+        }
+    }
+
+    /**
+     * After a move completes at an endpoint, wait briefly so the driver has
+     * fully settled and stale events have drained, then re-evaluate the final
+     * state. Applied symmetrically after both up and down moves.
+     */
+    private val postMoveDelayRunnable = object : Runnable {
+        override fun run() {
+            postMoveDelayPending = false
+            if (!destroyed) reconcileMotorState()
         }
     }
 
@@ -291,6 +340,7 @@ class CameraMotorService : Service() {
                 settledDirection = DIRECTION_UNKNOWN
                 faultDirection = DIRECTION_UNKNOWN
                 clearRestartRequest()
+                cancelPostMoveDelay()
                 suppressedAbnormalUntilMillis.clear()
                 staleMoveEventGuards.clear()
                 scheduleReconnect()
@@ -447,6 +497,8 @@ class CameraMotorService : Service() {
             return
         }
 
+        if (postMoveDelayPending) return
+
         if (restartAfterDown) {
             cancelPendingDown()
             val fullyDown = settledDirection == IMotor.DIRECTION_DOWN &&
@@ -494,10 +546,27 @@ class CameraMotorService : Service() {
         stateHandler.postDelayed(downRunnable, DOWN_DEBOUNCE_MILLIS)
     }
 
+    private fun moveInFlight(): Boolean =
+        movingDirection != DIRECTION_UNKNOWN ||
+            (commandedDirection != DIRECTION_UNKNOWN &&
+                settledDirection != commandedDirection)
+
     private fun cancelPendingDown() {
         if (!downPending) return
         stateHandler.removeCallbacks(downRunnable)
         downPending = false
+    }
+
+    private fun schedulePostMoveDelay() {
+        if (destroyed || postMoveDelayPending) return
+        postMoveDelayPending = true
+        stateHandler.removeCallbacks(postMoveDelayRunnable)
+        stateHandler.postDelayed(postMoveDelayRunnable, POST_MOVE_DELAY_MILLIS)
+    }
+
+    private fun cancelPostMoveDelay() {
+        postMoveDelayPending = false
+        stateHandler.removeCallbacks(postMoveDelayRunnable)
     }
 
     private fun requestMove(direction: Int, startMode: Int, force: Boolean = false) {
@@ -508,6 +577,12 @@ class CameraMotorService : Service() {
             (movingDirection == direction || settledDirection == direction)
         if (!force && alreadyFollowingCommand) {
             if (direction == IMotor.DIRECTION_UP) restorePendingTorchIfMotorUp()
+            return
+        }
+        if (!force && moveInFlight()) {
+            // A move is already in flight, so the opposite-direction command
+            // must wait. Completion (or the watchdog) re-evaluates the final
+            // state; no command is sent while the motor is moving.
             return
         }
 
@@ -540,6 +615,8 @@ class CameraMotorService : Service() {
             if (previousDirection != null) suppressStaleMoveEvents(previousDirection)
             commandedDirection = direction
             syncMotorStateAfterMove(service, direction)
+            stateHandler.removeCallbacks(moveWatchdogRunnable)
+            stateHandler.postDelayed(moveWatchdogRunnable, MOVE_WATCHDOG_DELAY_MILLIS)
             Log.i(TAG, "Motor request direction=$direction mode=$startMode")
         } catch (e: Exception) {
             Log.e(TAG, "Motor request failed", e)
@@ -551,6 +628,7 @@ class CameraMotorService : Service() {
             settledDirection = DIRECTION_UNKNOWN
             faultDirection = DIRECTION_UNKNOWN
             clearRestartRequest()
+            cancelPostMoveDelay()
             suppressedAbnormalUntilMillis.clear()
             staleMoveEventGuards.clear()
             scheduleReconnect()
@@ -574,6 +652,35 @@ class CameraMotorService : Service() {
             else -> DIRECTION_UNKNOWN
         }
         if (requestedDirection == IMotor.DIRECTION_UP) restorePendingTorchIfMotorUp()
+    }
+
+    private fun readHardwareMotorState(): HardwareMotorState? {
+        val service = motor ?: return null
+        return try {
+            val movingDirection = when (service.getMoveState()) {
+                MOTOR_MOVE_STATE_UP -> IMotor.DIRECTION_UP
+                MOTOR_MOVE_STATE_DOWN -> IMotor.DIRECTION_DOWN
+                else -> DIRECTION_UNKNOWN
+            }
+            val positionDirection = when (service.getPosition()) {
+                IMotor.POSITION_UP -> IMotor.DIRECTION_UP
+                IMotor.POSITION_DOWN -> IMotor.DIRECTION_DOWN
+                else -> DIRECTION_UNKNOWN
+            }
+            HardwareMotorState(movingDirection, positionDirection)
+        } catch (e: Exception) {
+            Log.w(TAG, "Unable to read motor hardware state", e)
+            null
+        }
+    }
+
+    private fun applyHardwareMotorState(state: HardwareMotorState) {
+        movingDirection = state.movingDirection
+        settledDirection = if (movingDirection == DIRECTION_UNKNOWN) {
+            state.positionDirection
+        } else {
+            DIRECTION_UNKNOWN
+        }
     }
 
     private fun restorePendingTorchIfMotorUp() {
@@ -630,6 +737,7 @@ class CameraMotorService : Service() {
         faultDirection = DIRECTION_UNKNOWN
         pendingTorchRestoreIds = emptySet()
         cancelPendingDown()
+        cancelPostMoveDelay()
         stateHandler.removeCallbacks(safetyReleaseRunnable)
         val elapsed = SystemClock.elapsedRealtime() - safetyLatchedAtMillis
         val releaseDelay = (SAFETY_MINIMUM_LATCH_MILLIS - elapsed).coerceAtLeast(0L)
@@ -794,10 +902,8 @@ class CameraMotorService : Service() {
         if (faultDirection == direction) faultDirection = DIRECTION_UNKNOWN
         suppressedAbnormalUntilMillis.remove(direction)
 
-        if (direction == IMotor.DIRECTION_UP) {
-            restorePendingTorchIfMotorUp()
-        }
-        reconcileMotorState()
+        if (direction == IMotor.DIRECTION_UP) restorePendingTorchIfMotorUp()
+        schedulePostMoveDelay()
     }
 
     private fun handleMoveAbnormal(direction: Int) {
@@ -817,6 +923,7 @@ class CameraMotorService : Service() {
         settledDirection = DIRECTION_UNKNOWN
         commandedDirection = DIRECTION_UNKNOWN
         faultDirection = direction
+        cancelPostMoveDelay()
         clearRestartRequest()
         if (direction == IMotor.DIRECTION_UP) {
             val torchIdsToRestore = pendingTorchRestoreIds + enabledTorchIds()
@@ -1050,6 +1157,11 @@ class CameraMotorService : Service() {
         val expiresAtMillis: Long,
     )
 
+    private data class HardwareMotorState(
+        val movingDirection: Int,
+        val positionDirection: Int,
+    )
+
     private enum class SafetyReason {
         NONE,
         FALL,
@@ -1068,6 +1180,9 @@ class CameraMotorService : Service() {
         const val SIGNAL_REPLAY_TIMEOUT_MILLIS = 20_000L
         const val INPUT_RETRY_DELAY_MILLIS = 5_000L
         const val DOWN_DEBOUNCE_MILLIS = 2_000L
+        const val POST_MOVE_DELAY_MILLIS = 150L
+        const val MOVE_WATCHDOG_DELAY_MILLIS = 1_200L
+        const val MOVE_WATCHDOG_INTERVAL_MILLIS = 500L
         const val RESTART_TIMEOUT_MILLIS = 5_000L
         const val STALE_MOVE_EVENT_SUPPRESSION_MILLIS = 2_500L
         const val TORCH_DISABLE_RETRY_MILLIS = 1_000L
