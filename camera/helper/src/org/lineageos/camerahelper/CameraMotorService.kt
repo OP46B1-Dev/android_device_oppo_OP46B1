@@ -1179,7 +1179,7 @@ class CameraMotorService : Service() {
         const val RECONNECT_DELAY_MILLIS = 1_000L
         const val SIGNAL_REPLAY_TIMEOUT_MILLIS = 20_000L
         const val INPUT_RETRY_DELAY_MILLIS = 5_000L
-        const val DOWN_DEBOUNCE_MILLIS = 2_000L
+        const val DOWN_DEBOUNCE_MILLIS = 100L
         const val POST_MOVE_DELAY_MILLIS = 150L
         const val MOVE_WATCHDOG_DELAY_MILLIS = 1_200L
         const val MOVE_WATCHDOG_INTERVAL_MILLIS = 500L
