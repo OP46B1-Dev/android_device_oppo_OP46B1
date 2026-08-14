@@ -4,7 +4,7 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 
-service vendor.livedisplay-hal-2-1 /vendor/bin/hw/vendor.lineage.livedisplay@2.1-service.OP46B1
+service vendor.livedisplay-hal /vendor/bin/hw/vendor.lineage.livedisplay-service.OP46B1
     class late_start
     user system
     group system

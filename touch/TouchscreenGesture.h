@@ -5,26 +5,19 @@
 
 #pragma once
 
-#include <hidl/MQDescriptor.h>
-#include <hidl/Status.h>
-#include <vendor/lineage/touch/1.0/ITouchscreenGesture.h>
+#include <aidl/vendor/lineage/touch/BnTouchscreenGesture.h>
 #include <map>
 
+namespace aidl {
 namespace vendor {
 namespace lineage {
 namespace touch {
-namespace V1_0 {
-namespace implementation {
 
-using ::android::hardware::Return;
-using ::android::hardware::Void;
-using ::vendor::lineage::touch::V1_0::Gesture;
-
-class TouchscreenGesture : public ITouchscreenGesture {
+class TouchscreenGesture : public BnTouchscreenGesture {
   public:
-    // Methods from ::vendor::lineage::touch::V1_0::ITouchscreenGesture follow.
-    Return<void> getSupportedGestures(getSupportedGestures_cb resultCb) override;
-    Return<bool> setGestureEnabled(const Gesture& gesture, bool enabled) override;
+    // Methods from ::aidl::vendor::lineage::touch::BnTouchscreenGesture follow.
+    ndk::ScopedAStatus getSupportedGestures(std::vector<Gesture>* _aidl_return) override;
+    ndk::ScopedAStatus setGestureEnabled(const Gesture& gesture, bool enabled) override;
 
   private:
     // See: drivers/input/touchscreen/oplus_touchscreen/touchpanel_common.h
@@ -83,8 +76,7 @@ class TouchscreenGesture : public ITouchscreenGesture {
     static const int kSupportedGestures;
 };
 
-}  // namespace implementation
-}  // namespace V1_0
 }  // namespace touch
 }  // namespace lineage
 }  // namespace vendor
+}  // namespace aidl

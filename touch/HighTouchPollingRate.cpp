@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-#define LOG_TAG "vendor.lineage.touch@1.0-service.OP46B1"
+#define LOG_TAG "vendor.lineage.touch-service.OP46B1"
 
 #include <android-base/file.h>
 #include <android-base/logging.h>
@@ -18,34 +18,35 @@ namespace {
 constexpr const char* kGameSwitchEnablePath = "/proc/touchpanel/game_switch_enable";
 }  // anonymous namespace
 
+namespace aidl {
 namespace vendor {
 namespace lineage {
 namespace touch {
-namespace V1_0 {
-namespace implementation {
 
-Return<bool> HighTouchPollingRate::isEnabled() {
+HighTouchPollingRate::HighTouchPollingRate() {}
+
+ndk::ScopedAStatus HighTouchPollingRate::getEnabled(bool* _aidl_return) {
     std::string value;
 
     if (!ReadFileToString(kGameSwitchEnablePath, &value)) {
         LOG(ERROR) << "Failed to read current HighTouchPollingRate state";
-        return false;
+        return ndk::ScopedAStatus::fromExceptionCode(EX_UNSUPPORTED_OPERATION);
     }
 
-    return Trim(value) != "0";
+    *_aidl_return = Trim(value) != "0";
+    return ndk::ScopedAStatus::ok();
 }
 
-Return<bool> HighTouchPollingRate::setEnabled(bool enabled) {
+ndk::ScopedAStatus HighTouchPollingRate::setEnabled(bool enabled) {
     if (!WriteStringToFile(enabled ? "1" : "0", kGameSwitchEnablePath, true)) {
         LOG(ERROR) << "Failed to write HighTouchPollingRate state";
-        return false;
+        return ndk::ScopedAStatus::fromExceptionCode(EX_UNSUPPORTED_OPERATION);
     }
 
-    return true;
+    return ndk::ScopedAStatus::ok();
 }
 
-}  // namespace implementation
-}  // namespace V1_0
 }  // namespace touch
 }  // namespace lineage
 }  // namespace vendor
+}  // namespace aidl

@@ -3,65 +3,48 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-#define LOG_TAG "vendor.lineage.livedisplay@2.1-service-OP46B1"
+#define LOG_TAG "vendor.lineage.livedisplay-service.OP46B1"
 
 #include <android-base/logging.h>
-#include <hidl/HidlTransportSupport.h>
-#include <livedisplay/AntiFlicker.h>
-#include <livedisplay/DisplayModes.h>
-#include <livedisplay/SunlightEnhancement.h>
+#include <android/binder_manager.h>
+#include <android/binder_process.h>
 
-using ::android::OK;
-using ::android::sp;
-using ::android::status_t;
-using ::android::hardware::configureRpcThreadpool;
-using ::android::hardware::joinRpcThreadpool;
+#include "AntiFlicker.h"
+#include "DisplayModes.h"
+#include "SunlightEnhancement.h"
 
-using ::vendor::lineage::livedisplay::V2_1::IAntiFlicker;
-using ::vendor::lineage::livedisplay::V2_1::IDisplayModes;
-using ::vendor::lineage::livedisplay::V2_1::ISunlightEnhancement;
-using ::vendor::lineage::livedisplay::V2_1::implementation::AntiFlicker;
-using ::vendor::lineage::livedisplay::V2_1::implementation::DisplayModes;
-using ::vendor::lineage::livedisplay::V2_1::implementation::SunlightEnhancement;
+using ::aidl::vendor::lineage::livedisplay::AntiFlicker;
+using ::aidl::vendor::lineage::livedisplay::DisplayModes;
+using ::aidl::vendor::lineage::livedisplay::SunlightEnhancement;
 
 int main() {
-    status_t status = OK;
+    ABinderProcess_setThreadPoolMaxThreadCount(0);
 
     LOG(INFO) << "LiveDisplay HAL service is starting.";
 
-    sp<AntiFlicker> af = new AntiFlicker();
-    sp<DisplayModes> dm = new DisplayModes();
-    sp<SunlightEnhancement> se = new SunlightEnhancement();
+    std::shared_ptr<AntiFlicker> af = ndk::SharedRefBase::make<AntiFlicker>();
+    std::shared_ptr<DisplayModes> dm = ndk::SharedRefBase::make<DisplayModes>();
+    std::shared_ptr<SunlightEnhancement> se = ndk::SharedRefBase::make<SunlightEnhancement>();
 
-    configureRpcThreadpool(1, true /*callerWillJoin*/);
+    const std::string afInstance = std::string(AntiFlicker::descriptor) + "/default";
+    const binder_status_t afStatus =
+            AServiceManager_addService(af->asBinder().get(), afInstance.c_str());
+    CHECK_EQ(afStatus, STATUS_OK) << "Failed to register service " << afInstance << " "
+                                  << afStatus;
 
-    status = af->registerAsService();
-    if (status != OK) {
-        LOG(ERROR) << "Could not register service for LiveDisplay HAL AntiFlicker Iface ("
-                   << status << ")";
-        goto shutdown;
-    }
+    const std::string dmInstance = std::string(DisplayModes::descriptor) + "/default";
+    const binder_status_t dmStatus =
+            AServiceManager_addService(dm->asBinder().get(), dmInstance.c_str());
+    CHECK_EQ(dmStatus, STATUS_OK) << "Failed to register service " << dmInstance << " "
+                                  << dmStatus;
 
-    status = dm->registerAsService();
-    if (status != OK) {
-        LOG(ERROR) << "Could not register service for LiveDisplay HAL DisplayModes Iface ("
-                   << status << ")";
-        goto shutdown;
-    }
-
-    status = se->registerAsService();
-    if (status != OK) {
-        LOG(ERROR) << "Could not register service for LiveDisplay HAL SunlightEnhancement Iface ("
-                   << status << ")";
-        goto shutdown;
-    }
+    const std::string seInstance = std::string(SunlightEnhancement::descriptor) + "/default";
+    const binder_status_t seStatus =
+            AServiceManager_addService(se->asBinder().get(), seInstance.c_str());
+    CHECK_EQ(seStatus, STATUS_OK) << "Failed to register service " << seInstance << " "
+                                  << seStatus;
 
     LOG(INFO) << "LiveDisplay HAL service is ready.";
-    joinRpcThreadpool();
-    // Should not pass this line
-
-shutdown:
-    // In normal operation, we don't expect the thread pool to shutdown
-    LOG(ERROR) << "LiveDisplay HAL service is shutting down.";
-    return 1;
+    ABinderProcess_joinThreadPool();
+    return EXIT_FAILURE;  // should not reach
 }

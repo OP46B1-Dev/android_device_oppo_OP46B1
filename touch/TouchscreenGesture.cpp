@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-#define LOG_TAG "vendor.lineage.touch@1.0-service.OP46B1"
+#define LOG_TAG "vendor.lineage.touch-service.OP46B1"
 
 #include <android-base/file.h>
 #include <android-base/logging.h>
@@ -18,13 +18,12 @@ namespace {
 constexpr const char* kGestureEnableIndepPath = "/proc/touchpanel/double_tap_enable_indep";
 }  // anonymous namespace
 
+namespace aidl {
 namespace vendor {
 namespace lineage {
 namespace touch {
-namespace V1_0 {
-namespace implementation {
 
-Return<void> TouchscreenGesture::getSupportedGestures(getSupportedGestures_cb resultCb) {
+ndk::ScopedAStatus TouchscreenGesture::getSupportedGestures(std::vector<Gesture>* _aidl_return) {
     std::vector<Gesture> gestures;
 
     for (const auto& [id, name] : kGestureNames) {
@@ -33,18 +32,19 @@ Return<void> TouchscreenGesture::getSupportedGestures(getSupportedGestures_cb re
         }
     }
 
-    resultCb(gestures);
-    return Void();
+    *_aidl_return = gestures;
+    return ndk::ScopedAStatus::ok();
 }
 
-Return<bool> TouchscreenGesture::setGestureEnabled(const Gesture& gesture, bool enabled) {
+ndk::ScopedAStatus TouchscreenGesture::setGestureEnabled(const Gesture& gesture, bool enabled) {
     std::string tmp;
     int contents = 0;
 
     // The kernel node is read back in hex and written in decimal.
-    if (ReadFileToString(kGestureEnableIndepPath, &tmp)) {
-        contents = std::stoi(Trim(tmp), nullptr, 16);
+    if (!ReadFileToString(kGestureEnableIndepPath, &tmp)) {
+        return ndk::ScopedAStatus::fromExceptionCode(EX_UNSUPPORTED_OPERATION);
     }
+    contents = std::stoi(Trim(tmp), nullptr, 16);
 
     if (enabled) {
         contents |= (1 << (gesture.keycode - kGestureStartKey));
@@ -54,14 +54,13 @@ Return<bool> TouchscreenGesture::setGestureEnabled(const Gesture& gesture, bool 
 
     if (!WriteStringToFile(std::to_string(contents), kGestureEnableIndepPath, true)) {
         LOG(ERROR) << "Failed to write gesture enable state";
-        return false;
+        return ndk::ScopedAStatus::fromExceptionCode(EX_UNSUPPORTED_OPERATION);
     }
 
-    return true;
+    return ndk::ScopedAStatus::ok();
 }
 
-}  // namespace implementation
-}  // namespace V1_0
 }  // namespace touch
 }  // namespace lineage
 }  // namespace vendor
+}  // namespace aidl

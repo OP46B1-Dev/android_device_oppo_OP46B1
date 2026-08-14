@@ -8,13 +8,12 @@
 #include <android-base/file.h>
 #include <android-base/logging.h>
 #include <android-base/strings.h>
-#include <livedisplay/AntiFlicker.h>
+#include "AntiFlicker.h"
 
+namespace aidl {
 namespace vendor {
 namespace lineage {
 namespace livedisplay {
-namespace V2_1 {
-namespace implementation {
 
 namespace {
 constexpr const char* kDimlayerBlEn = "/sys/kernel/oppo_display/dimlayer_bl_en";
@@ -22,25 +21,25 @@ constexpr const char* kDimlayerBlEn = "/sys/kernel/oppo_display/dimlayer_bl_en";
 
 AntiFlicker::AntiFlicker() {}
 
-Return<bool> AntiFlicker::isEnabled() {
+ndk::ScopedAStatus AntiFlicker::getEnabled(bool* _aidl_return) {
     std::string tmp;
     if (::android::base::ReadFileToString(kDimlayerBlEn, &tmp)) {
-        return ::android::base::Trim(tmp) == "1";
+        *_aidl_return = ::android::base::Trim(tmp) == "1";
+        return ndk::ScopedAStatus::ok();
     }
     LOG(ERROR) << "Failed to read current AntiFlicker state from " << kDimlayerBlEn;
-    return false;
+    return ndk::ScopedAStatus::fromExceptionCode(EX_UNSUPPORTED_OPERATION);
 }
 
-Return<bool> AntiFlicker::setEnabled(bool enabled) {
+ndk::ScopedAStatus AntiFlicker::setEnabled(bool enabled) {
     if (!::android::base::WriteStringToFile(enabled ? "1" : "0", kDimlayerBlEn, true)) {
         LOG(ERROR) << "Failed to set AntiFlicker state on " << kDimlayerBlEn;
-        return false;
+        return ndk::ScopedAStatus::fromExceptionCode(EX_UNSUPPORTED_OPERATION);
     }
-    return true;
+    return ndk::ScopedAStatus::ok();
 }
 
-}  // namespace implementation
-}  // namespace V2_1
 }  // namespace livedisplay
 }  // namespace lineage
 }  // namespace vendor
+}  // namespace aidl

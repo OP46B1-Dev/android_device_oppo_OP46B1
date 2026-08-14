@@ -11,10 +11,10 @@
 /dev/silead_fp                                                                               u:object_r:fingerprint_device:s0
 
 # LiveDisplay
-/(vendor|system/vendor)/bin/hw/vendor\.lineage\.livedisplay@2\.1-service\.OP46B1             u:object_r:hal_lineage_livedisplay_qti_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.lineage\.livedisplay-service\.OP46B1                  u:object_r:hal_lineage_livedisplay_sysfs_exec:s0
 
 # Touch
-/(vendor|system/vendor)/bin/hw/vendor\.lineage\.touch@1\.0-service\.OP46B1                   u:object_r:hal_lineage_touch_default_exec:s0
+/(vendor|system/vendor)/bin/hw/vendor\.lineage\.touch-service\.OP46B1                        u:object_r:hal_lineage_touch_default_exec:s0
 
 # Init
 /(vendor|system/vendor)/bin/init\.qti\.qcv\.sh                                                u:object_r:qti_init_shell_exec:s0

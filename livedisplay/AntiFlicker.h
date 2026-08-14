@@ -5,23 +5,23 @@
 
 #pragma once
 
-#include <aidl/vendor/lineage/touch/BnHighTouchPollingRate.h>
+#include <aidl/vendor/lineage/livedisplay/BnAntiFlicker.h>
 
 namespace aidl {
 namespace vendor {
 namespace lineage {
-namespace touch {
+namespace livedisplay {
 
-class HighTouchPollingRate : public BnHighTouchPollingRate {
+class AntiFlicker : public BnAntiFlicker {
   public:
-    HighTouchPollingRate();
+    AntiFlicker();
 
-    // Methods from ::aidl::vendor::lineage::touch::BnHighTouchPollingRate follow.
+    // Methods from ::aidl::vendor::lineage::livedisplay::BnAntiFlicker follow.
     ndk::ScopedAStatus getEnabled(bool* _aidl_return) override;
     ndk::ScopedAStatus setEnabled(bool enabled) override;
 };
 
-}  // namespace touch
+}  // namespace livedisplay
 }  // namespace lineage
 }  // namespace vendor
 }  // namespace aidl

@@ -3,54 +3,39 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-#define LOG_TAG "vendor.lineage.touch@1.0-service-OP46B1"
+#define LOG_TAG "vendor.lineage.touch-service.OP46B1"
 
 #include <android-base/logging.h>
-#include <hidl/HidlTransportSupport.h>
+#include <android/binder_manager.h>
+#include <android/binder_process.h>
+
 #include "HighTouchPollingRate.h"
 #include "TouchscreenGesture.h"
 
-using android::OK;
-using android::sp;
-using android::status_t;
-using android::hardware::configureRpcThreadpool;
-using android::hardware::joinRpcThreadpool;
-
-using vendor::lineage::touch::V1_0::IHighTouchPollingRate;
-using vendor::lineage::touch::V1_0::ITouchscreenGesture;
-using vendor::lineage::touch::V1_0::implementation::HighTouchPollingRate;
-using vendor::lineage::touch::V1_0::implementation::TouchscreenGesture;
+using ::aidl::vendor::lineage::touch::HighTouchPollingRate;
+using ::aidl::vendor::lineage::touch::TouchscreenGesture;
 
 int main() {
-    status_t status = OK;
+    ABinderProcess_setThreadPoolMaxThreadCount(0);
 
     LOG(INFO) << "Touch HAL service is starting.";
 
-    sp<HighTouchPollingRate> htpr = new HighTouchPollingRate();
-    sp<TouchscreenGesture> tg = new TouchscreenGesture();
+    std::shared_ptr<HighTouchPollingRate> htpr = ndk::SharedRefBase::make<HighTouchPollingRate>();
+    std::shared_ptr<TouchscreenGesture> tg = ndk::SharedRefBase::make<TouchscreenGesture>();
 
-    configureRpcThreadpool(1, true /*callerWillJoin*/);
+    const std::string htprInstance = std::string(HighTouchPollingRate::descriptor) + "/default";
+    const binder_status_t htprStatus =
+            AServiceManager_addService(htpr->asBinder().get(), htprInstance.c_str());
+    CHECK_EQ(htprStatus, STATUS_OK) << "Failed to register service " << htprInstance << " "
+                                    << htprStatus;
 
-    status = htpr->registerAsService();
-    if (status != OK) {
-        LOG(ERROR) << "Could not register service for Touch HAL HighTouchPollingRate Iface ("
-                   << status << ")";
-        goto shutdown;
-    }
-
-    status = tg->registerAsService();
-    if (status != OK) {
-        LOG(ERROR) << "Could not register service for Touch HAL TouchscreenGesture Iface ("
-                   << status << ")";
-        goto shutdown;
-    }
+    const std::string tgInstance = std::string(TouchscreenGesture::descriptor) + "/default";
+    const binder_status_t tgStatus =
+            AServiceManager_addService(tg->asBinder().get(), tgInstance.c_str());
+    CHECK_EQ(tgStatus, STATUS_OK) << "Failed to register service " << tgInstance << " "
+                                  << tgStatus;
 
     LOG(INFO) << "Touch HAL service is ready.";
-    joinRpcThreadpool();
-    // Should not pass this line
-
-shutdown:
-    // In normal operation, we don't expect the thread pool to shutdown
-    LOG(ERROR) << "Touch HAL service is shutting down.";
-    return 1;
+    ABinderProcess_joinThreadPool();
+    return EXIT_FAILURE;  // should not reach
 }
