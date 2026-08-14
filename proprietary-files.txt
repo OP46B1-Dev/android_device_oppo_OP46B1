@@ -285,7 +285,6 @@ vendor/etc/camera/M_Verify_Faster_Common_4.0.0_wp.model
 vendor/etc/camera/faceTpl0.rgb32
 vendor/etc/camera/faceTpl1.rgb32
 vendor/etc/camera/gasryuv.model
-vendor/etc/camera/license.lic
 vendor/etc/camera/skinSeg.model
 vendor/etc/camera/vidhance_calibration
 

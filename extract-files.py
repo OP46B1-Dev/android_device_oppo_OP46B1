@@ -98,7 +98,24 @@ blob_fixups: blob_fixups_user_type = {
     'vendor/etc/seccomp_policy/atfwd@2.0.policy': blob_fixup()
         .add_line_if_missing('gettid: 1'),
     'vendor/lib64/hw/camera.qcom.so': blob_fixup()
-        .add_needed('liboplus_camera_shim.so'),
+        .add_needed('liboplus_camera_shim.so')
+        .sig_replace(
+            'E0 5F 00 F9 E8 5F 40 F9 48 0C 00 B4', # cbz x8, 0x2be638
+            'E0 5F 00 F9 E8 5F 40 F9 28 36 00 B4'  # cbz x8, 0x2beb74
+        )
+        .sig_replace(
+            'E8 DF 40 B9 E8 EF 00 B9 01 00 00 14', # ldr w8, [sp, #0xdc]
+            '08 00 80 52 E8 EF 00 B9 01 00 00 14'  # mov w8, #0x0
+        )
+        .sig_replace(
+            'E0 4B 00 F9 E8 4B 40 F9 C8 0C 00 B4', # cbz x8, 0x2c5f14
+            'E0 4B 00 F9 E8 4B 40 F9 E8 0D 00 B4'  # cbz x8, 0x2c5f38
+        ),
+    'vendor/lib64/libcvface_api.so': blob_fixup()
+        .sig_replace(
+            'C2 FF FF 17 80 01 80 12 C0 FF FF 17', # mov w0, #-0xd
+            'C2 FF FF 17 00 00 80 52 C0 FF FF 17'  # mov w0, #0x0
+        ),
     'vendor/lib64/libarcsoft_super_night_raw.so': blob_fixup()
         .clear_symbol_version('remote_register_buf'),
     'vendor/lib64/libhvx_proxy_stub.so': blob_fixup()
