@@ -66,8 +66,7 @@ BOARD_KERNEL_CMDLINE := \
     lpm_levels.sleep_disabled=1 \
     msm_rtb.filter=0x237 \
     printk.devkmsg=on \
-    service_locator.enable=1 \
-    swiotlb=1
+    service_locator.enable=1
 BOARD_KERNEL_CMDLINE += androidboot.init_fatal_reboot_target=recovery
 BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOTIMG_HEADER_VERSION)
 TARGET_KERNEL_CLANG_COMPILE := true
