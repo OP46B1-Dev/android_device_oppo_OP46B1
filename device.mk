@@ -61,7 +61,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl \
     android.hardware.camera.provider@2.4-service_64 \
-    vendor.oplus.hardware.camera.signal-service.OP46B1 \
+    vendor.oplus.hardware.camera.signal@1.0-service.OP46B1 \
     vendor.oplus.hardware.motor-service.OP46B1 \
     OPlusCameraHelper
 
