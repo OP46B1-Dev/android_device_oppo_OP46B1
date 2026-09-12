@@ -48,7 +48,7 @@ TARGET_SCREEN_HEIGHT := 2340
 TARGET_SCREEN_WIDTH := 1080
 
 # Filesystem
-TARGET_FS_CONFIG_GEN := $(DEVICE_PATH)/config.fs
+TARGET_FS_CONFIG_GEN := $(DEVICE_PATH)/configs/config.fs
 
 # Kernel
 TARGET_KERNEL_ARCH := arm64
@@ -107,9 +107,9 @@ BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
 TARGET_BOARD_PLATFORM := sdm710
 
 # Properties
-TARGET_ODM_PROP += $(DEVICE_PATH)/odm.prop
-TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
-TARGET_VENDOR_PROP += $(DEVICE_PATH)/vendor.prop
+TARGET_ODM_PROP += $(DEVICE_PATH)/configs/properties/odm.prop
+TARGET_SYSTEM_PROP += $(DEVICE_PATH)/configs/properties/system.prop
+TARGET_VENDOR_PROP += $(DEVICE_PATH)/configs/properties/vendor.prop
 
 # Qualcomm Hardware
 BOARD_USES_QCOM_HARDWARE := true
@@ -155,14 +155,14 @@ BOARD_AVB_RECOVERY_ROLLBACK_INDEX_LOCATION := 1
 
 # VINTF
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
-    $(DEVICE_PATH)/framework_compatibility_matrix.xml \
+    $(DEVICE_PATH)/configs/vintf/framework_compatibility_matrix.xml \
     hardware/qcom-caf/common/vendor_framework_compatibility_matrix.xml \
     hardware/qcom-caf/common/vendor_framework_compatibility_matrix_legacy.xml \
     vendor/lineage/config/device_framework_matrix.xml
-DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/manifest.xml
+DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/configs/vintf/manifest.xml
 DEVICE_MATRIX_FILE += \
     hardware/qcom-caf/common/compatibility_matrix.xml \
-    $(DEVICE_PATH)/camera/device_compatibility_matrix.xml
+    $(DEVICE_PATH)/configs/vintf/device_compatibility_matrix.xml
 
 # Wi-Fi
 BOARD_WLAN_DEVICE := qcwcn
