@@ -61,14 +61,14 @@ cc_library_shared {
 }
 
 cc_binary {
-    name: "vendor.oplus.hardware.camera.signal-service.OP46B1",
+    name: "vendor.oplus.hardware.camera.signal@1.0-service.OP46B1",
     srcs: [
         "signal/CameraSignalService.cpp",
         "signal/service.cpp",
     ],
     local_include_dirs: ["signal"],
-    init_rc: ["signal/vendor.oplus.hardware.camera.signal-service.OP46B1.rc"],
-    vintf_fragments: ["signal/vendor.oplus.hardware.camera.signal-service.OP46B1.xml"],
+    init_rc: ["signal/vendor.oplus.hardware.camera.signal@1.0-service.OP46B1.rc"],
+    vintf_fragments: ["signal/vendor.oplus.hardware.camera.signal@1.0-service.OP46B1.xml"],
     relative_install_path: "hw",
     defaults: ["hidl_defaults"],
     shared_libs: [
