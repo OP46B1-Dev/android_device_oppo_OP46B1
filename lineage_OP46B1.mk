@@ -24,4 +24,6 @@ PRODUCT_GMS_CLIENTID_BASE := android-oppo
 
 PRODUCT_BUILD_PROP_OVERRIDES += \
     BuildDesc="PCAM00-user 11 RKQ1.201217.002 1736421576479 release-keys" \
-    BuildFingerprint=OPPO/PCAM00/OP46B1:11/RKQ1.201217.002/1736421576479:user/release-keys
+    BuildFingerprint=OPPO/PCAM00/OP46B1:11/RKQ1.201217.002/1736421576479:user/release-keys \
+    DeviceProduct=PCAM00 \
+    SystemName=PCAM00
